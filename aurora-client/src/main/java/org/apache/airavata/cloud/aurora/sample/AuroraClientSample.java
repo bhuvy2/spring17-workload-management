@@ -94,14 +94,12 @@ public class AuroraClientSample {
 		JobKeyBean jobKey = new JobKeyBean("devel", "centos", "test_job3");
 		IdentityBean owner = new IdentityBean("centos");
 		
-		ProcessBean proc1 = new ProcessBean("process_1", "ping -c 4 sgg-mesos-slave-3", false);
-		ProcessBean proc2 = new ProcessBean("process_2", "ping -c 4 52.15.117.230", false);
-		ProcessBean proc3 = new ProcessBean("process_3", "cp .logs/process_2/0/stdout ~/efs-mount-point/stdout-demo", false);
+		ProcessBean proc1 = new ProcessBean("process_1", "ping -c 4 sga-mesos-slave", false);
+		ProcessBean proc2 = new ProcessBean("process_2", "ping -c 4 sga-mesos-master", false);
 		
 		Set<ProcessBean> processes = new LinkedHashSet<>();
 		processes.add(proc1);
 		processes.add(proc2);
-		processes.add(proc3);
 		
 		ResourceBean resources = new ResourceBean(1, 8, 1);
 		
