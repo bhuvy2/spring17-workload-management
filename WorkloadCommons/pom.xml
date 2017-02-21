@@ -65,65 +65,6 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.thrift.tools</groupId>
-				<artifactId>maven-thrift-plugin</artifactId>
-				<version>0.1.11</version>
-				<configuration>
-					<thriftExecutable>/usr/local/bin/thrift</thriftExecutable>
-					<thriftSourceRoot>src/main/resources</thriftSourceRoot>
-				</configuration>
-				<executions>
-					<execution>
-						<id>generate-thrift-java</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<generator>java</generator>
-							<outputDirectory>src/main/java</outputDirectory>
-							<compileOutput>true</compileOutput>
-						</configuration>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.thrift.tools
-										</groupId>
-										<artifactId>
-											maven-thrift-plugin
-										</artifactId>
-										<versionRange>
-											[0.1.11,)
-										</versionRange>
-										<goals>
-											<goal>compile</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 </project>

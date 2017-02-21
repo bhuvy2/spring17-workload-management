@@ -16,6 +16,14 @@ enum DataType {
 	DOUBLE
 }
 
+enum Status {
+	OK = 200,
+	CREATED = 201,
+	ACCEPTED = 202,
+	NOT_FOUND = 404,
+	BAD_REQUEST = 401
+}
+
 struct TargetMachine {
 	1: required string hostname,
 	2: required integer port,
@@ -56,6 +64,12 @@ struct TaskContext {
 	4: optional Application application,
 }
 
+struct Response {
+	1: required Status status,
+	2: optional string message
+}
+
 exception OperationFailedException {
 	1: string message
 }
+
