@@ -1,10 +1,10 @@
-package org.apache.airavata.sga.job.submission.task.impl;
+package org.apache.airavata.sga.job.submission.impl;
 
 import java.util.List;
 
-import org.apache.airavata.sga.job.submission.task.JobSubmissionTask;
+import org.apache.airavata.sga.job.submission.JobSubmission;
 
-public class HPCJobSubmissionTaskImpl implements JobSubmissionTask {
+public class HPCJobSubmissionTaskImpl implements JobSubmission {
 
 	@Override
 	public String submitJob(String experimentId, String userName, String environmentName, Double numCPU, Long diskMB,

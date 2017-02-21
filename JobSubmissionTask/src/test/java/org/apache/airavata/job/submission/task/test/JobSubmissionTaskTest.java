@@ -3,14 +3,14 @@ package org.apache.airavata.job.submission.task.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.airavata.sga.job.submission.task.JobSubmissionTask;
-import org.apache.airavata.sga.job.submission.task.impl.CloudJobSubmissionTaskImpl;
+import org.apache.airavata.sga.job.submission.JobSubmission;
+import org.apache.airavata.sga.job.submission.impl.CloudJobSubmissionTaskImpl;
 
 public class JobSubmissionTaskTest {
 
 	public void testSubmitCloudJob() {
 		try {
-			JobSubmissionTask cloudJS = new CloudJobSubmissionTaskImpl();
+			JobSubmission cloudJS = new CloudJobSubmissionTaskImpl();
 			List<String> commands = new ArrayList<>();
 			commands.add("ping sga-mesos-master -c 4");
 			commands.add("ping sga-mesos-slave -c 4");

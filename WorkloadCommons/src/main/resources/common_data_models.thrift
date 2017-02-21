@@ -1,6 +1,7 @@
 namespace java org.apache.airavata.sga.commons.model
 
 typedef i32 integer
+typedef i64 long
 
 enum DataTransferProtocol {
 	SFTP,
@@ -16,6 +17,12 @@ enum DataType {
 	DOUBLE
 }
 
+enum MachineType {
+	CLOUD,
+	HPC,
+	VM
+}
+
 enum Status {
 	OK = 200,
 	CREATED = 201,
@@ -29,7 +36,8 @@ struct TargetMachine {
 	2: required integer port,
 	3: required string scratchDir,
 	4: required string loginId
-	5: required DataTransferProtocol dtProtocol
+	5: required DataTransferProtocol dtProtocol,
+	6: required MachineType machineType
 }
 
 struct LocalStorage {
@@ -42,7 +50,10 @@ struct LocalStorage {
 
 struct Experiment {
 	1: required string experimentId,
-	2: required string workingDir
+	2: required string workingDir,
+	3: optional double numCPU = 0.2,
+	4: optional long diskMB = 10,
+	5: optional long ramMB = 128
 }
 
 struct Data {

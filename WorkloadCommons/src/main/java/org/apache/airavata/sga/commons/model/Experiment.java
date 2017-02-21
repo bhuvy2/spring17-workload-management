@@ -40,6 +40,9 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
 
   private static final org.apache.thrift.protocol.TField EXPERIMENT_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("experimentId", org.apache.thrift.protocol.TType.STRING, (short)1);
   private static final org.apache.thrift.protocol.TField WORKING_DIR_FIELD_DESC = new org.apache.thrift.protocol.TField("workingDir", org.apache.thrift.protocol.TType.STRING, (short)2);
+  private static final org.apache.thrift.protocol.TField NUM_CPU_FIELD_DESC = new org.apache.thrift.protocol.TField("numCPU", org.apache.thrift.protocol.TType.DOUBLE, (short)3);
+  private static final org.apache.thrift.protocol.TField DISK_MB_FIELD_DESC = new org.apache.thrift.protocol.TField("diskMB", org.apache.thrift.protocol.TType.I64, (short)4);
+  private static final org.apache.thrift.protocol.TField RAM_MB_FIELD_DESC = new org.apache.thrift.protocol.TField("ramMB", org.apache.thrift.protocol.TType.I64, (short)5);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -49,11 +52,17 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
 
   public String experimentId; // required
   public String workingDir; // required
+  public double numCPU; // optional
+  public long diskMB; // optional
+  public long ramMB; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
     EXPERIMENT_ID((short)1, "experimentId"),
-    WORKING_DIR((short)2, "workingDir");
+    WORKING_DIR((short)2, "workingDir"),
+    NUM_CPU((short)3, "numCPU"),
+    DISK_MB((short)4, "diskMB"),
+    RAM_MB((short)5, "ramMB");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -72,6 +81,12 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
           return EXPERIMENT_ID;
         case 2: // WORKING_DIR
           return WORKING_DIR;
+        case 3: // NUM_CPU
+          return NUM_CPU;
+        case 4: // DISK_MB
+          return DISK_MB;
+        case 5: // RAM_MB
+          return RAM_MB;
         default:
           return null;
       }
@@ -112,6 +127,11 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
   }
 
   // isset id assignments
+  private static final int __NUMCPU_ISSET_ID = 0;
+  private static final int __DISKMB_ISSET_ID = 1;
+  private static final int __RAMMB_ISSET_ID = 2;
+  private byte __isset_bitfield = 0;
+  private static final _Fields optionals[] = {_Fields.NUM_CPU,_Fields.DISK_MB,_Fields.RAM_MB};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -119,11 +139,23 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.WORKING_DIR, new org.apache.thrift.meta_data.FieldMetaData("workingDir", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+    tmpMap.put(_Fields.NUM_CPU, new org.apache.thrift.meta_data.FieldMetaData("numCPU", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.DISK_MB, new org.apache.thrift.meta_data.FieldMetaData("diskMB", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64        , "long")));
+    tmpMap.put(_Fields.RAM_MB, new org.apache.thrift.meta_data.FieldMetaData("ramMB", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64        , "long")));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(Experiment.class, metaDataMap);
   }
 
   public Experiment() {
+    this.numCPU = 0.2;
+
+    this.diskMB = 10L;
+
+    this.ramMB = 128L;
+
   }
 
   public Experiment(
@@ -139,12 +171,16 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
    * Performs a deep copy on <i>other</i>.
    */
   public Experiment(Experiment other) {
+    __isset_bitfield = other.__isset_bitfield;
     if (other.isSetExperimentId()) {
       this.experimentId = other.experimentId;
     }
     if (other.isSetWorkingDir()) {
       this.workingDir = other.workingDir;
     }
+    this.numCPU = other.numCPU;
+    this.diskMB = other.diskMB;
+    this.ramMB = other.ramMB;
   }
 
   public Experiment deepCopy() {
@@ -155,6 +191,12 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
   public void clear() {
     this.experimentId = null;
     this.workingDir = null;
+    this.numCPU = 0.2;
+
+    this.diskMB = 10L;
+
+    this.ramMB = 128L;
+
   }
 
   public String getExperimentId() {
@@ -205,6 +247,75 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
     }
   }
 
+  public double getNumCPU() {
+    return this.numCPU;
+  }
+
+  public Experiment setNumCPU(double numCPU) {
+    this.numCPU = numCPU;
+    setNumCPUIsSet(true);
+    return this;
+  }
+
+  public void unsetNumCPU() {
+    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __NUMCPU_ISSET_ID);
+  }
+
+  /** Returns true if field numCPU is set (has been assigned a value) and false otherwise */
+  public boolean isSetNumCPU() {
+    return EncodingUtils.testBit(__isset_bitfield, __NUMCPU_ISSET_ID);
+  }
+
+  public void setNumCPUIsSet(boolean value) {
+    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __NUMCPU_ISSET_ID, value);
+  }
+
+  public long getDiskMB() {
+    return this.diskMB;
+  }
+
+  public Experiment setDiskMB(long diskMB) {
+    this.diskMB = diskMB;
+    setDiskMBIsSet(true);
+    return this;
+  }
+
+  public void unsetDiskMB() {
+    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __DISKMB_ISSET_ID);
+  }
+
+  /** Returns true if field diskMB is set (has been assigned a value) and false otherwise */
+  public boolean isSetDiskMB() {
+    return EncodingUtils.testBit(__isset_bitfield, __DISKMB_ISSET_ID);
+  }
+
+  public void setDiskMBIsSet(boolean value) {
+    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __DISKMB_ISSET_ID, value);
+  }
+
+  public long getRamMB() {
+    return this.ramMB;
+  }
+
+  public Experiment setRamMB(long ramMB) {
+    this.ramMB = ramMB;
+    setRamMBIsSet(true);
+    return this;
+  }
+
+  public void unsetRamMB() {
+    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __RAMMB_ISSET_ID);
+  }
+
+  /** Returns true if field ramMB is set (has been assigned a value) and false otherwise */
+  public boolean isSetRamMB() {
+    return EncodingUtils.testBit(__isset_bitfield, __RAMMB_ISSET_ID);
+  }
+
+  public void setRamMBIsSet(boolean value) {
+    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __RAMMB_ISSET_ID, value);
+  }
+
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
     case EXPERIMENT_ID:
@@ -223,6 +334,30 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
       }
       break;
 
+    case NUM_CPU:
+      if (value == null) {
+        unsetNumCPU();
+      } else {
+        setNumCPU((Double)value);
+      }
+      break;
+
+    case DISK_MB:
+      if (value == null) {
+        unsetDiskMB();
+      } else {
+        setDiskMB((Long)value);
+      }
+      break;
+
+    case RAM_MB:
+      if (value == null) {
+        unsetRamMB();
+      } else {
+        setRamMB((Long)value);
+      }
+      break;
+
     }
   }
 
@@ -233,6 +368,15 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
 
     case WORKING_DIR:
       return getWorkingDir();
+
+    case NUM_CPU:
+      return getNumCPU();
+
+    case DISK_MB:
+      return getDiskMB();
+
+    case RAM_MB:
+      return getRamMB();
 
     }
     throw new IllegalStateException();
@@ -249,6 +393,12 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
       return isSetExperimentId();
     case WORKING_DIR:
       return isSetWorkingDir();
+    case NUM_CPU:
+      return isSetNumCPU();
+    case DISK_MB:
+      return isSetDiskMB();
+    case RAM_MB:
+      return isSetRamMB();
     }
     throw new IllegalStateException();
   }
@@ -284,6 +434,33 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
         return false;
     }
 
+    boolean this_present_numCPU = true && this.isSetNumCPU();
+    boolean that_present_numCPU = true && that.isSetNumCPU();
+    if (this_present_numCPU || that_present_numCPU) {
+      if (!(this_present_numCPU && that_present_numCPU))
+        return false;
+      if (this.numCPU != that.numCPU)
+        return false;
+    }
+
+    boolean this_present_diskMB = true && this.isSetDiskMB();
+    boolean that_present_diskMB = true && that.isSetDiskMB();
+    if (this_present_diskMB || that_present_diskMB) {
+      if (!(this_present_diskMB && that_present_diskMB))
+        return false;
+      if (this.diskMB != that.diskMB)
+        return false;
+    }
+
+    boolean this_present_ramMB = true && this.isSetRamMB();
+    boolean that_present_ramMB = true && that.isSetRamMB();
+    if (this_present_ramMB || that_present_ramMB) {
+      if (!(this_present_ramMB && that_present_ramMB))
+        return false;
+      if (this.ramMB != that.ramMB)
+        return false;
+    }
+
     return true;
   }
 
@@ -300,6 +477,21 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
     list.add(present_workingDir);
     if (present_workingDir)
       list.add(workingDir);
+
+    boolean present_numCPU = true && (isSetNumCPU());
+    list.add(present_numCPU);
+    if (present_numCPU)
+      list.add(numCPU);
+
+    boolean present_diskMB = true && (isSetDiskMB());
+    list.add(present_diskMB);
+    if (present_diskMB)
+      list.add(diskMB);
+
+    boolean present_ramMB = true && (isSetRamMB());
+    list.add(present_ramMB);
+    if (present_ramMB)
+      list.add(ramMB);
 
     return list.hashCode();
   }
@@ -328,6 +520,36 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
     }
     if (isSetWorkingDir()) {
       lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.workingDir, other.workingDir);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetNumCPU()).compareTo(other.isSetNumCPU());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetNumCPU()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.numCPU, other.numCPU);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetDiskMB()).compareTo(other.isSetDiskMB());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetDiskMB()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.diskMB, other.diskMB);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetRamMB()).compareTo(other.isSetRamMB());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetRamMB()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.ramMB, other.ramMB);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -367,6 +589,24 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
       sb.append(this.workingDir);
     }
     first = false;
+    if (isSetNumCPU()) {
+      if (!first) sb.append(", ");
+      sb.append("numCPU:");
+      sb.append(this.numCPU);
+      first = false;
+    }
+    if (isSetDiskMB()) {
+      if (!first) sb.append(", ");
+      sb.append("diskMB:");
+      sb.append(this.diskMB);
+      first = false;
+    }
+    if (isSetRamMB()) {
+      if (!first) sb.append(", ");
+      sb.append("ramMB:");
+      sb.append(this.ramMB);
+      first = false;
+    }
     sb.append(")");
     return sb.toString();
   }
@@ -392,6 +632,8 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
 
   private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
     try {
+      // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+      __isset_bitfield = 0;
       read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
     } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
@@ -432,6 +674,30 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
+          case 3: // NUM_CPU
+            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+              struct.numCPU = iprot.readDouble();
+              struct.setNumCPUIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 4: // DISK_MB
+            if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+              struct.diskMB = iprot.readI64();
+              struct.setDiskMBIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 5: // RAM_MB
+            if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+              struct.ramMB = iprot.readI64();
+              struct.setRamMBIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
           default:
             org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
         }
@@ -457,6 +723,21 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
         oprot.writeString(struct.workingDir);
         oprot.writeFieldEnd();
       }
+      if (struct.isSetNumCPU()) {
+        oprot.writeFieldBegin(NUM_CPU_FIELD_DESC);
+        oprot.writeDouble(struct.numCPU);
+        oprot.writeFieldEnd();
+      }
+      if (struct.isSetDiskMB()) {
+        oprot.writeFieldBegin(DISK_MB_FIELD_DESC);
+        oprot.writeI64(struct.diskMB);
+        oprot.writeFieldEnd();
+      }
+      if (struct.isSetRamMB()) {
+        oprot.writeFieldBegin(RAM_MB_FIELD_DESC);
+        oprot.writeI64(struct.ramMB);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -476,6 +757,26 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
       TTupleProtocol oprot = (TTupleProtocol) prot;
       oprot.writeString(struct.experimentId);
       oprot.writeString(struct.workingDir);
+      BitSet optionals = new BitSet();
+      if (struct.isSetNumCPU()) {
+        optionals.set(0);
+      }
+      if (struct.isSetDiskMB()) {
+        optionals.set(1);
+      }
+      if (struct.isSetRamMB()) {
+        optionals.set(2);
+      }
+      oprot.writeBitSet(optionals, 3);
+      if (struct.isSetNumCPU()) {
+        oprot.writeDouble(struct.numCPU);
+      }
+      if (struct.isSetDiskMB()) {
+        oprot.writeI64(struct.diskMB);
+      }
+      if (struct.isSetRamMB()) {
+        oprot.writeI64(struct.ramMB);
+      }
     }
 
     @Override
@@ -485,6 +786,19 @@ public class Experiment implements org.apache.thrift.TBase<Experiment, Experimen
       struct.setExperimentIdIsSet(true);
       struct.workingDir = iprot.readString();
       struct.setWorkingDirIsSet(true);
+      BitSet incoming = iprot.readBitSet(3);
+      if (incoming.get(0)) {
+        struct.numCPU = iprot.readDouble();
+        struct.setNumCPUIsSet(true);
+      }
+      if (incoming.get(1)) {
+        struct.diskMB = iprot.readI64();
+        struct.setDiskMBIsSet(true);
+      }
+      if (incoming.get(2)) {
+        struct.ramMB = iprot.readI64();
+        struct.setRamMBIsSet(true);
+      }
     }
   }
 
