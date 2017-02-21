@@ -11,6 +11,7 @@
 		<slf4j.version>1.7.5</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
+		<sga.version>0.0.1-SNAPSHOT</sga.version>
 	</properties>
 
 	<dependencies>
@@ -21,28 +22,14 @@
 			<version>0.17-SNAPSHOT</version>
 		</dependency>
 		
-		<!-- Testing -->
+		<!-- Workflow Commons -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- Logging -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-			<scope>compile</scope>
+			<groupId>org.apache.airavata.sga</groupId>
+			<artifactId>WorkloadCommons</artifactId>
+			<version>${sga.version}</version>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>
