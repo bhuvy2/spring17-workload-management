@@ -18,10 +18,9 @@
  * under the License.
  *
 */
-package org.apache.airavata.sga.task.util;
+package org.apache.airavata.sga.data.staging.task.util;
 
 import com.jcraft.jsch.Channel;
-import org.apache.airavata.sga.task.util.CommandOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

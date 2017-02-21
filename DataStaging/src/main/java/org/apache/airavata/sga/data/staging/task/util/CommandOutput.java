@@ -17,7 +17,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.airavata.sga.task.util;
+package org.apache.airavata.sga.data.staging.task.util;
 
 
 import com.jcraft.jsch.Channel;

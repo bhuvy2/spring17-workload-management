@@ -1,4 +1,4 @@
-package org.apache.airavata.sga.task.entity;
+package org.apache.airavata.sga.data.staging.task.entity;
 
 /**
  * Created by Ajinkya on 2/16/17.

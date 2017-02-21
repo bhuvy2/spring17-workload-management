@@ -1,4 +1,4 @@
-package org.apache.airavata.sga.task.exception;
+package org.apache.airavata.sga.data.staging.task.exception;
 
 /**
  * Created by Ajinkya on 2/16/17.

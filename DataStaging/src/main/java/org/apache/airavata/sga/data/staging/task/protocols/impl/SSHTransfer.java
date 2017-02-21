@@ -18,18 +18,18 @@
  * under the License.
  *
  */
-package org.apache.airavata.sga.task.protocols.impl;
+package org.apache.airavata.sga.data.staging.task.protocols.impl;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
-import org.apache.airavata.sga.task.entity.ServerInfo;
-import org.apache.airavata.sga.task.exception.SSHException;
-import org.apache.airavata.sga.task.protocols.DataMovement;
-import org.apache.airavata.sga.task.protocols.Factory;
-import org.apache.airavata.sga.task.util.StandardOutReader;
+import org.apache.airavata.sga.data.staging.task.entity.ServerInfo;
+import org.apache.airavata.sga.data.staging.task.exception.SSHException;
+import org.apache.airavata.sga.data.staging.task.protocols.DataMovement;
+import org.apache.airavata.sga.data.staging.task.protocols.Factory;
+import org.apache.airavata.sga.data.staging.task.util.StandardOutReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,9 +1,9 @@
-package org.apache.airavata.sga.task.protocols;
+package org.apache.airavata.sga.data.staging.task.protocols;
 
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import org.apache.airavata.sga.task.entity.ServerInfo;
+import org.apache.airavata.sga.data.staging.task.entity.ServerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

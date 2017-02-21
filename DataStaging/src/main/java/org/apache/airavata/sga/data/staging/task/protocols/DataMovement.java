@@ -1,9 +1,6 @@
-package org.apache.airavata.sga.task.protocols;
+package org.apache.airavata.sga.data.staging.task.protocols;
 
-import com.jcraft.jsch.JSchException;
-import org.apache.airavata.sga.task.exception.SSHException;
-
-import java.io.IOException;
+import org.apache.airavata.sga.data.staging.task.exception.SSHException;
 
 /**
  * Created by Ajinkya on 2/16/17.
