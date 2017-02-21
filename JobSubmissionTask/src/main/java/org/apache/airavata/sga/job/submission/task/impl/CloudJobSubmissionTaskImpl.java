@@ -1,4 +1,4 @@
-package org.apache.airavata.sga.task.impl;
+package org.apache.airavata.sga.job.submission.task.impl;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.apache.airavata.cloud.aurora.client.bean.ResponseBean;
 import org.apache.airavata.cloud.aurora.client.bean.TaskConfigBean;
 import org.apache.airavata.cloud.aurora.util.AuroraThriftClientUtil;
 import org.apache.airavata.cloud.aurora.util.Constants;
-import org.apache.airavata.sga.task.JobSubmissionTask;
-import org.apache.airavata.sga.task.util.AuroraUtils;
+import org.apache.airavata.sga.job.submission.task.JobSubmissionTask;
+import org.apache.airavata.sga.job.submission.task.util.AuroraUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

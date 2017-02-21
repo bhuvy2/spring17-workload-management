@@ -1,4 +1,4 @@
-package org.apache.airavata.sga.task.util;
+package org.apache.airavata.sga.job.submission.task.util;
 
 public class AuroraUtils {
 	

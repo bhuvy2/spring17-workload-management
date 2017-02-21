@@ -1,10 +1,10 @@
-package org.apache.airavata.task.test;
+package org.apache.airavata.job.submission.task.test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.airavata.sga.task.JobSubmissionTask;
-import org.apache.airavata.sga.task.impl.CloudJobSubmissionTaskImpl;
+import org.apache.airavata.sga.job.submission.task.JobSubmissionTask;
+import org.apache.airavata.sga.job.submission.task.impl.CloudJobSubmissionTaskImpl;
 
 public class JobSubmissionTaskTest {
 

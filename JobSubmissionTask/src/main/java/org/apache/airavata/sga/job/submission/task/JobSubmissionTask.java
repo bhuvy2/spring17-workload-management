@@ -1,4 +1,4 @@
-package org.apache.airavata.sga.task;
+package org.apache.airavata.sga.job.submission.task;
 
 import java.util.List;
 

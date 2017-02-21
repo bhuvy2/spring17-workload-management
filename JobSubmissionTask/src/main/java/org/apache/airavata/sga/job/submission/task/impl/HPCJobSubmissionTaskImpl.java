@@ -1,8 +1,8 @@
-package org.apache.airavata.sga.task.impl;
+package org.apache.airavata.sga.job.submission.task.impl;
 
 import java.util.List;
 
-import org.apache.airavata.sga.task.JobSubmissionTask;
+import org.apache.airavata.sga.job.submission.task.JobSubmissionTask;
 
 public class HPCJobSubmissionTaskImpl implements JobSubmissionTask {
 
