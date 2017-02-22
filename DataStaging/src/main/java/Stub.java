@@ -1,14 +1,9 @@
 
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
 import org.apache.airavata.sga.commons.model.DataTransferProtocol;
 import org.apache.airavata.sga.data.staging.task.cluster.RemoteCluster;
 import org.apache.airavata.sga.data.staging.task.cluster.impl.RemoteClusterImpl;
 import org.apache.airavata.sga.data.staging.task.entity.ServerInfo;
 import org.apache.airavata.sga.data.staging.task.exception.RemoteClusterException;
-import org.apache.airavata.sga.data.staging.task.exception.SSHException;
-import org.apache.airavata.sga.data.staging.task.handler.DataMovement;
-import org.apache.airavata.sga.data.staging.task.protocols.impl.SSHImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

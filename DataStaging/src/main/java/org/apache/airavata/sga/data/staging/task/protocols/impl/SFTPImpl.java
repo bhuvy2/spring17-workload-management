@@ -3,8 +3,6 @@ package org.apache.airavata.sga.data.staging.task.protocols.impl;
 import com.jcraft.jsch.*;
 import org.apache.airavata.sga.data.staging.task.entity.ServerInfo;
 import org.apache.airavata.sga.data.staging.task.exception.SSHException;
-import org.apache.airavata.sga.data.staging.task.handler.DataMovement;
-import org.apache.airavata.sga.data.staging.task.handler.EnvironmentSetup;
 import org.apache.airavata.sga.data.staging.task.protocols.RemoteInteraction;
 import org.apache.airavata.sga.data.staging.task.util.Factory;
 import org.slf4j.Logger;
