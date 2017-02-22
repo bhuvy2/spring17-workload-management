@@ -1,10 +1,14 @@
 
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import org.apache.airavata.sga.commons.model.DataTransferProtocol;
+import org.apache.airavata.sga.data.staging.task.cluster.RemoteCluster;
+import org.apache.airavata.sga.data.staging.task.cluster.impl.RemoteClusterImpl;
 import org.apache.airavata.sga.data.staging.task.entity.ServerInfo;
+import org.apache.airavata.sga.data.staging.task.exception.RemoteClusterException;
 import org.apache.airavata.sga.data.staging.task.exception.SSHException;
-import org.apache.airavata.sga.data.staging.task.protocols.DataMovement;
-import org.apache.airavata.sga.data.staging.task.protocols.impl.SSHTransfer;
+import org.apache.airavata.sga.data.staging.task.handler.DataMovement;
+import org.apache.airavata.sga.data.staging.task.protocols.impl.SSHImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,22 +29,15 @@ public class Stub {
         String remoteDir = "/home/adhamnas/www/test/";
 
         ServerInfo serverInfo = new ServerInfo(user, host, privateKey, port);
-        Session session = null;
 
         try{
 
-            DataMovement tp = new SSHTransfer(serverInfo);
-            tp.write(local, remoteDir);
+            RemoteCluster remoteCluster = new RemoteClusterImpl(serverInfo, DataTransferProtocol.SCP);
+            remoteCluster.write(local, remoteDir);
             logger.debug("main() -> File moved to remote server. User : " + serverInfo.getUserName() + ", Remote : " + serverInfo.getHost());
 
-        }catch ( JSchException | SSHException e) {
+        }catch ( RemoteClusterException e) {
             logger.error("Error moving file. User : " + serverInfo.getUserName() + ", Remote : " + serverInfo.getHost(), e);
-        }finally {
-
-            if( null != session && session.isConnected()){
-                logger.info("main() -> Terminating session. User : " + serverInfo.getUserName() + ", Remote : " + serverInfo.getHost());
-                session.disconnect();
-            }
         }
 
     }

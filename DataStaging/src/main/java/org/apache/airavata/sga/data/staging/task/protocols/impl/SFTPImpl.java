@@ -3,8 +3,10 @@ package org.apache.airavata.sga.data.staging.task.protocols.impl;
 import com.jcraft.jsch.*;
 import org.apache.airavata.sga.data.staging.task.entity.ServerInfo;
 import org.apache.airavata.sga.data.staging.task.exception.SSHException;
-import org.apache.airavata.sga.data.staging.task.protocols.DataMovement;
-import org.apache.airavata.sga.data.staging.task.protocols.Factory;
+import org.apache.airavata.sga.data.staging.task.handler.DataMovement;
+import org.apache.airavata.sga.data.staging.task.handler.EnvironmentSetup;
+import org.apache.airavata.sga.data.staging.task.protocols.RemoteInteraction;
+import org.apache.airavata.sga.data.staging.task.util.Factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,18 +17,18 @@ import java.io.OutputStream;
 /**
  * Created by Ajinkya on 2/16/17.
  */
-public class SFTPTransfer implements DataMovement{
+public class SFTPImpl implements RemoteInteraction {
 
-    private static final Logger logger = LoggerFactory.getLogger(SSHTransfer.class);
+    private static final Logger logger = LoggerFactory.getLogger(SSHImpl.class);
 
     private Session srcSession = null;
     private Session session = null;
 
-    public SFTPTransfer(ServerInfo serverInfo) throws JSchException {
+    public SFTPImpl(ServerInfo serverInfo) throws JSchException {
         session = Factory.getSSHSession(serverInfo);
     }
 
-    public SFTPTransfer(ServerInfo srcServerInfo, ServerInfo destServerInfo) throws JSchException {
+    public SFTPImpl(ServerInfo srcServerInfo, ServerInfo destServerInfo) throws JSchException {
         srcSession = Factory.getSSHSession(srcServerInfo);
         session = Factory.getSSHSession(destServerInfo);
     }

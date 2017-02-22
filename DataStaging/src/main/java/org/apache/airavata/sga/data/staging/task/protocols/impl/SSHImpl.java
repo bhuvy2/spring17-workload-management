@@ -27,8 +27,10 @@ import com.jcraft.jsch.Session;
 
 import org.apache.airavata.sga.data.staging.task.entity.ServerInfo;
 import org.apache.airavata.sga.data.staging.task.exception.SSHException;
-import org.apache.airavata.sga.data.staging.task.protocols.DataMovement;
-import org.apache.airavata.sga.data.staging.task.protocols.Factory;
+import org.apache.airavata.sga.data.staging.task.handler.DataMovement;
+import org.apache.airavata.sga.data.staging.task.handler.EnvironmentSetup;
+import org.apache.airavata.sga.data.staging.task.protocols.RemoteInteraction;
+import org.apache.airavata.sga.data.staging.task.util.Factory;
 import org.apache.airavata.sga.data.staging.task.util.StandardOutReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,19 +40,19 @@ import java.io.*;
 /**
  * Utility class to do all ssh and scp related things.
  */
-public class SSHTransfer implements DataMovement {
+public class SSHImpl implements RemoteInteraction {
 
-	private static final Logger logger = LoggerFactory.getLogger(SSHTransfer.class);
+	private static final Logger logger = LoggerFactory.getLogger(SSHImpl.class);
 
 	private Session session = null;
 
 	private Session srcSession = null;
 
-	public SSHTransfer(ServerInfo serverInfo) throws JSchException {
+	public SSHImpl(ServerInfo serverInfo) throws JSchException {
 		session = Factory.getSSHSession(serverInfo);
 	}
 
-	public SSHTransfer(ServerInfo srcServerInfo, ServerInfo destServerInfo) throws JSchException {
+	public SSHImpl(ServerInfo srcServerInfo, ServerInfo destServerInfo) throws JSchException {
 		srcSession = Factory.getSSHSession(srcServerInfo);
 		session = Factory.getSSHSession(destServerInfo);
 	}
@@ -517,7 +519,7 @@ public class SSHTransfer implements DataMovement {
 				logger.error("", ee);
 			}
 			try {
-				if (din != null) din.close();
+				if (sin != null) sin.close();
 			} catch (IOException ee) {
 				logger.error("", ee);
 			}
