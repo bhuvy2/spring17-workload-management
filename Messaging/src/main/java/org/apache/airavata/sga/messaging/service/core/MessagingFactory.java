@@ -21,7 +21,7 @@
 package org.apache.airavata.sga.messaging.service.core;
 
 import org.apache.airavata.sga.messaging.service.core.impl.CustomerConsumer;
-import org.apache.airavata.sga.messaging.service.core.impl.OrderConsumer;
+import org.apache.airavata.sga.messaging.service.core.impl.MessageConsumer;
 import org.apache.airavata.sga.messaging.service.core.impl.RabbitMQPublisher;
 import org.apache.airavata.sga.messaging.service.core.impl.RabbitMQSubscriber;
 import org.apache.airavata.sga.messaging.service.util.Constants;
@@ -36,80 +36,25 @@ public class MessagingFactory {
 
     private static final Logger logger = LogManager.getLogger(MessagingFactory.class);
 
-    public static Publisher getPublisher(Type type) {
-
-        logger.info("getPublisher() -> Creating Publisher. Type : " + type);
-
-        RabbitMQProperties rProperties = getProperties();
-        Publisher publisher = null;
-        switch (type) {
-            case JOB_SUMISSION:
-                publisher = getJobSubmissionPublisher(rProperties);
-                break;
-            case DATA_STAGING:
-                publisher = getDataStagingPublisher(rProperties);
-                break;
-        }
-
-        logger.info("getPublisher() -> Publisher created. Type : " + type);
-        return publisher;
-    }
-
-    public static Subscriber getSubscriber(final MessageHandler messageHandler, List<String> routingKeys, Type type) {
-
-        logger.info("getSubscriber() -> Creating subscriber. Routing keys : " + routingKeys.toString() + ", Type : " + type);
-
-        RabbitMQProperties rProperties = getProperties();
-        Subscriber subscriber = null;
-        switch (type) {
-            case JOB_SUMISSION:
-                subscriber = getJobSubmissionSubscriber(rProperties);
-                subscriber.listen(((connection, channel) -> new OrderConsumer(messageHandler, connection, channel)),
-                        rProperties.getQueueName(),
-                        routingKeys);
-                break;
-            case DATA_STAGING:
-                subscriber = getDataStagingSubscriber(rProperties);
-                subscriber.listen(((connection, channel) -> new CustomerConsumer(messageHandler, connection, channel)),
-                        rProperties.getQueueName(),
-                        routingKeys);
-                break;
-        }
-
-        logger.debug("getSubscriber() -> Subscriber created. Routing keys : " + routingKeys.toString() + ", Type : " + type);
-
-        return subscriber;
-    }
-    
-    public static Publisher getJobSubmissionPublisher(RabbitMQProperties rProperties) {
-    	rProperties.setExchangeName(Constants.JOB_SUBMISSION_EXCHANGE_NAME);
+    public static Publisher getPublisher(RabbitMQProperties rProperties) {
         logger.info("getJobSubmissionPublisher() -> Fetching jobsubmission publisher. Routing Props : " + rProperties.toString());
         return new RabbitMQPublisher(rProperties, Constants.JOB_SUBMISSION_ROUTING_KEY);
     }
 
-    public static Publisher getDataStagingPublisher(RabbitMQProperties rProperties) {
-    	rProperties.setExchangeName(Constants.DATA_STAGING_EXCHANGE_NAME);
-        logger.info("getDataStagingPublisher() -> Fetching datastaging publisher. Routing Props : " + rProperties.toString());
-        return new RabbitMQPublisher(rProperties, Constants.DATA_STAGING_ROUTING_KEY);
+    public static Subscriber getSubscriber(final MessageHandler messageHandler, RabbitMQProperties rProperties) {
+
+        logger.info("getSubscriber() -> Creating subscriber. Routing keys : " + rProperties.getRoutingKey() + ", Routing Props : " + rProperties.toString());
+
+        Subscriber subscriber = new RabbitMQSubscriber(rProperties);
+        subscriber.listen(((connection, channel) -> new MessageConsumer(messageHandler, connection, channel)),
+                rProperties.getQueueName(),
+                rProperties.getRoutingKey());
+
+        logger.debug("getSubscriber() -> Subscriber created. Routing keys : " + rProperties.getRoutingKey() + ", Routing Props : " + rProperties.toString());
+
+        return subscriber;
     }
 
-    private static Subscriber getJobSubmissionSubscriber(RabbitMQProperties rProperties){
-        rProperties.setExchangeName(Constants.JOB_SUBMISSION_EXCHANGE_NAME)
-                .setQueueName(Constants.DATA_STAGING_QUEUE)
-                .setAutoAck(false);
-        logger.info("getJobSubmissionSubscriber() -> Fetching jobsubmission subscriber. Routing Props : " + rProperties.toString());
-        return new RabbitMQSubscriber(rProperties);
-
-    }
-
-    private static Subscriber getDataStagingSubscriber(RabbitMQProperties rProperties){
-        rProperties.setExchangeName(Constants.DATA_STAGING_EXCHANGE_NAME)
-                .setQueueName(Constants.DATA_STAGING_QUEUE)
-                .setAutoAck(false);
-        logger.info("getDataStagingSubscriber() -> Fetching datastaging subscriber. Routing Props : " + rProperties.toString());
-        return new RabbitMQSubscriber(rProperties);
-
-    }
 
     private static RabbitMQProperties getProperties() {
         return new RabbitMQProperties()

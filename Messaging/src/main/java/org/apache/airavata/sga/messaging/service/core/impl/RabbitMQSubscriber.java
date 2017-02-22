@@ -70,7 +70,7 @@ public class RabbitMQSubscriber implements Subscriber {
     @Override
     public String listen(BiFunction<Connection, Channel, Consumer> supplier,
                          String queueName,
-                         List<String> routingKeys){
+                         String routingKey){
 
         try {
             if (!channel.isOpen()) {
@@ -90,22 +90,19 @@ public class RabbitMQSubscriber implements Subscriber {
                                      false, // autoDelete
                                      null);// arguments
             }
-            final String id = getId(routingKeys, queueName);
+            final String id = getId(routingKey, queueName);
             if (queueDetailMap.containsKey(id)) {
                 throw new IllegalStateException("This subscriber is already defined for this Subscriber, " +
                         "cannot define the same subscriber twice");
             }
             // bind all the routing keys
-            for (String key : routingKeys) {
-                channel.queueBind(queueName, properties.getExchangeName(), key);
-            }
-
+            channel.queueBind(queueName, properties.getExchangeName(), routingKey);
             channel.basicConsume(queueName,
                     properties.isAutoAck(),
                     properties.getConsumerTag(),
                     supplier.apply(connection, channel));
 
-            queueDetailMap.put(id, new QueueDetail(queueName, routingKeys));
+            queueDetailMap.put(id, new QueueDetail(queueName, routingKey));
             return id;
         } catch (IOException e) {
             logger.error("listen() -> Error listening to queue. Queue Name : " + queueName, e);
@@ -118,9 +115,7 @@ public class RabbitMQSubscriber implements Subscriber {
         QueueDetail details = queueDetailMap.get(id);
         if (details != null) {
             try {
-                for (String key : details.getRoutingKeys()) {
-                    channel.queueUnbind(details.getQueueName(), properties.getExchangeName(), key);
-                }
+                channel.queueUnbind(details.getQueueName(), properties.getExchangeName(), details.getRoutingKey());
                 //channel.queueDelete(details.getQueueName(), true, true);
             } catch (IOException e) {
                 logger.error("stopListen() -> Error listening to queue. Id : " + id, e);
@@ -150,12 +145,8 @@ public class RabbitMQSubscriber implements Subscriber {
     }
 
 
-    private String getId(List<String> routingKeys, String queueName) {
-        String id = "";
-        for (String key : routingKeys) {
-            id = id + "_" + key;
-        }
-        return id + "_" + queueName;
+    private String getId(String routingKey, String queueName) {
+        return "_" + routingKey + "_" + queueName;
     }
 
     public void close() {
@@ -170,19 +161,19 @@ public class RabbitMQSubscriber implements Subscriber {
 
     private class QueueDetail {
         String queueName;
-        List<String> routingKeys;
+        String routingKey;
 
-        private QueueDetail(String queueName, List<String> routingKeys) {
+        private QueueDetail(String queueName, String routingKey) {
             this.queueName = queueName;
-            this.routingKeys = routingKeys;
+            this.routingKey = routingKey;
         }
 
         public String getQueueName() {
             return queueName;
         }
 
-        List<String> getRoutingKeys() {
-            return routingKeys;
+        String getRoutingKey() {
+            return routingKey;
         }
     }
 }

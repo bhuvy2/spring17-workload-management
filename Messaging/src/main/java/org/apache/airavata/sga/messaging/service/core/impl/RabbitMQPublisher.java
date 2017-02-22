@@ -38,12 +38,10 @@ public class RabbitMQPublisher implements Publisher {
     private Connection connection;
     private final RabbitMQProperties properties;
     private Channel channel;
-    private String routingKey;
 
 
-    public RabbitMQPublisher(RabbitMQProperties properties, String routingKey) {
+    public RabbitMQPublisher(RabbitMQProperties properties) {
         this.properties = properties;
-        this.routingKey = routingKey;
         connect();
     }
 
@@ -86,14 +84,14 @@ public class RabbitMQPublisher implements Publisher {
 
         byte[] messageBody = ThriftUtils.serializeThriftObject(message);
 
-        send(messageBody, routingKey);
+        send(messageBody);
         logger.info("publish() -> Message Sent. Message Id : " + messageContext.getMessageId());
 
     }
 
-    public void send(byte []message, String routingKey) throws Exception {
+    public void send(byte []message) throws Exception {
         try {
-            channel.basicPublish(properties.getExchangeName(), routingKey, MessageProperties.PERSISTENT_TEXT_PLAIN, message);
+            channel.basicPublish(properties.getExchangeName(), properties.getRoutingKey(), MessageProperties.PERSISTENT_TEXT_PLAIN, message);
         } catch (IOException e) {
             logger.error("send() -> Error sending message.", e);
         }

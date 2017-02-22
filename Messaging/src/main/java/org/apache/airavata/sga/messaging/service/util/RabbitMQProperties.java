@@ -13,6 +13,7 @@ public class RabbitMQProperties {
     private String consumerTag = "default";
     private boolean autoRecoveryEnable;
     private boolean autoAck;
+    private String routingKey;
 
     public String getBrokerUrl() {
         return brokerUrl;
@@ -107,6 +108,14 @@ public class RabbitMQProperties {
         }
     }
 
+    public String getRoutingKey() {
+        return routingKey;
+    }
+
+    public void setRoutingKey(String routingKey) {
+        this.routingKey = routingKey;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("RabbitMQProperties{");
@@ -119,6 +128,7 @@ public class RabbitMQProperties {
         sb.append(", consumerTag='").append(consumerTag).append('\'');
         sb.append(", autoRecoveryEnable=").append(autoRecoveryEnable);
         sb.append(", autoAck=").append(autoAck);
+        sb.append(", routingKey='").append(routingKey).append('\'');
         sb.append('}');
         return sb.toString();
     }

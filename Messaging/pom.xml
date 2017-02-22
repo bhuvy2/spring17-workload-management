@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.apache.airavata.sga</groupId>
-    <artifactId>Rabbitmq</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>Messaging</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Messaging</name>
 
     <properties>
         <log4j.version>1.2.17</log4j.version>

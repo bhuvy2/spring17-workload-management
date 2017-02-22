@@ -40,7 +40,7 @@ public interface Subscriber {
      */
     String listen(BiFunction<Connection, Channel, Consumer> supplier,
                   String queueName,
-                  List<String> routingKeys);
+                  String routingKey);
 
     void stopListen(final String id);
 

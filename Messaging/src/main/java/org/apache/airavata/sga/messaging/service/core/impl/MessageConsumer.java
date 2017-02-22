@@ -21,11 +21,12 @@
 package org.apache.airavata.sga.messaging.service.core.impl;
 
 import com.rabbitmq.client.*;
+import org.apache.airavata.sga.commons.model.TaskContext;
 import org.apache.airavata.sga.messaging.service.util.Constants;
 import org.apache.airavata.sga.messaging.service.util.MessageContext;
 import org.apache.airavata.sga.messaging.service.core.MessageHandler;
-import org.apache.airavata.sga.messaging.service.model.Customer;
 import org.apache.airavata.sga.messaging.service.model.Message;
+import org.apache.airavata.sga.messaging.service.model.Orders;
 import org.apache.airavata.sga.messaging.service.util.ThriftUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -34,15 +35,15 @@ import org.apache.thrift.TException;
 
 import java.io.IOException;
 
-public class CustomerConsumer extends QueueingConsumer {
+public class MessageConsumer extends QueueingConsumer {
 
-    private static final Logger logger = LogManager.getLogger(CustomerConsumer.class);
+    private static final Logger logger = LogManager.getLogger(MessageConsumer.class);
 
     private MessageHandler handler;
     private Channel channel;
     private Connection connection;
 
-    public CustomerConsumer(MessageHandler messageHandler, Connection connection, Channel channel) {
+    public MessageConsumer(MessageHandler messageHandler, Connection connection, Channel channel) {
         super(channel);
         this.handler = messageHandler;
         this.connection = connection;
@@ -62,11 +63,10 @@ public class CustomerConsumer extends QueueingConsumer {
             logger.info("handleDelivery() -> Handling message delivery. Consumer Tag : " + consumerTag);
             ThriftUtils.createThriftFromBytes(body, message);
 
-            Customer experimentEvent = new Customer();
+            TaskContext experimentEvent = new TaskContext();
             ThriftUtils.createThriftFromBytes(message.getEvent(), experimentEvent);
 
-            TBase event = experimentEvent;
-            MessageContext messageContext = new MessageContext(event, message.getMessageId(), envelope.getDeliveryTag());
+            MessageContext messageContext = new MessageContext(experimentEvent, message.getMessageId(), envelope.getDeliveryTag());
             handler.onMessage(messageContext);
             //sendAck(deliveryTag);
 
