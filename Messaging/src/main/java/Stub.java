@@ -21,19 +21,23 @@ import java.util.List;
 public class Stub {
     public Stub() throws Exception{
 
-        Publisher publisher = MessagingFactory.getPublisher(Type.CUSTOMER);
-        List<String> routingKeys = new ArrayList<>();
-        routingKeys.add("rk.cutomer");
-        Subscriber subscriber = MessagingFactory.getSubscriber(new OrderMessageHandler(), routingKeys, Type.CUSTOMER);
-        Customer cus = new Customer();
-        cus.setCustomerName("customer2");
-        cus.setCreditLimit(234);
-        Orders orders = new Orders();
-        orders.setOrderAmount(200);
-        orders.setCustomer(cus);
-        orders.setStatus("pending");
-        MessageContext mctx = new MessageContext(orders, "order-1");
-        publisher.publish(mctx);
+    	/**
+    	 * Commented out because of compilation errors - 
+    	 * 		as I have removed Customer & Order from RabbitMQ
+    	 */
+//        Publisher publisher = MessagingFactory.getPublisher(Type.CUSTOMER);
+//        List<String> routingKeys = new ArrayList<>();
+//        routingKeys.add("rk.cutomer");
+//        Subscriber subscriber = MessagingFactory.getSubscriber(new OrderMessageHandler(), routingKeys, Type.CUSTOMER);
+//        Customer cus = new Customer();
+//        cus.setCustomerName("customer2");
+//        cus.setCreditLimit(234);
+//        Orders orders = new Orders();
+//        orders.setOrderAmount(200);
+//        orders.setCustomer(cus);
+//        orders.setStatus("pending");
+//        MessageContext mctx = new MessageContext(orders, "order-1");
+//        publisher.publish(mctx);
     }
 
     /**

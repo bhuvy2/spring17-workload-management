@@ -13,6 +13,7 @@
         <slf4j.version>1.7.5</slf4j.version>
         <amqp.client.version>3.5.5</amqp.client.version>
         <thrift.version>0.9.3</thrift.version>
+        <sga.version>0.0.1-SNAPSHOT</sga.version>
     </properties>
 
     <dependencies>
@@ -45,6 +46,12 @@
             <groupId>org.apache.thrift</groupId>
             <artifactId>libthrift</artifactId>
             <version>${thrift.version}</version>
+        </dependency>
+        
+        <dependency>
+        	<groupId>org.apache.airavata.sga</groupId>
+        	<artifactId>WorkloadCommons</artifactId>
+        	<version>${sga.version}</version>
         </dependency>
     </dependencies>
 

@@ -43,11 +43,11 @@ public class MessagingFactory {
         RabbitMQProperties rProperties = getProperties();
         Publisher publisher = null;
         switch (type) {
-            case ORDER:
-                publisher = getOrderPublisher(rProperties);
+            case JOB_SUMISSION:
+                publisher = getJobSubmissionPublisher(rProperties);
                 break;
-            case CUSTOMER:
-                publisher = getCustomerPublisher(rProperties);
+            case DATA_STAGING:
+                publisher = getDataStagingPublisher(rProperties);
                 break;
         }
 
@@ -62,14 +62,14 @@ public class MessagingFactory {
         RabbitMQProperties rProperties = getProperties();
         Subscriber subscriber = null;
         switch (type) {
-            case ORDER:
-                subscriber = getOrderSubscriber(rProperties);
+            case JOB_SUMISSION:
+                subscriber = getJobSubmissionSubscriber(rProperties);
                 subscriber.listen(((connection, channel) -> new OrderConsumer(messageHandler, connection, channel)),
                         rProperties.getQueueName(),
                         routingKeys);
                 break;
-            case CUSTOMER:
-                subscriber = getCustomerSubscriber(rProperties);
+            case DATA_STAGING:
+                subscriber = getDataStagingSubscriber(rProperties);
                 subscriber.listen(((connection, channel) -> new CustomerConsumer(messageHandler, connection, channel)),
                         rProperties.getQueueName(),
                         routingKeys);
@@ -80,33 +80,33 @@ public class MessagingFactory {
 
         return subscriber;
     }
-
-    public static Publisher getCustomerPublisher(RabbitMQProperties rProperties){
-        rProperties.setExchangeName(Constants.CUSTOMER_EXCHANGE_NAME);
-        logger.info("getCustomerPublisher() -> Fetching customer publisher. Routing Props : " + rProperties.toString());
-        return new RabbitMQPublisher(rProperties, Constants.CUSTOMER_ROUTING_KEY);
+    
+    public static Publisher getJobSubmissionPublisher(RabbitMQProperties rProperties) {
+    	rProperties.setExchangeName(Constants.JOB_SUBMISSION_EXCHANGE_NAME);
+        logger.info("getJobSubmissionPublisher() -> Fetching jobsubmission publisher. Routing Props : " + rProperties.toString());
+        return new RabbitMQPublisher(rProperties, Constants.JOB_SUBMISSION_ROUTING_KEY);
     }
 
-    public static Publisher getOrderPublisher(RabbitMQProperties rProperties){
-        rProperties.setExchangeName(Constants.ORDER_EXCHANGE_NAME);
-        logger.info("getOrderPublisher() -> Fetching order publisher. Routing Props : " + rProperties.toString());
-        return new RabbitMQPublisher(rProperties, Constants.ORDER_ROUTING_KEY);
+    public static Publisher getDataStagingPublisher(RabbitMQProperties rProperties) {
+    	rProperties.setExchangeName(Constants.DATA_STAGING_EXCHANGE_NAME);
+        logger.info("getDataStagingPublisher() -> Fetching datastaging publisher. Routing Props : " + rProperties.toString());
+        return new RabbitMQPublisher(rProperties, Constants.DATA_STAGING_ROUTING_KEY);
     }
 
-    private static Subscriber getCustomerSubscriber(RabbitMQProperties rProperties){
-        rProperties.setExchangeName(Constants.CUSTOMER_EXCHANGE_NAME)
-                .setQueueName(Constants.CUSTOMER_QUEUE)
+    private static Subscriber getJobSubmissionSubscriber(RabbitMQProperties rProperties){
+        rProperties.setExchangeName(Constants.JOB_SUBMISSION_EXCHANGE_NAME)
+                .setQueueName(Constants.DATA_STAGING_QUEUE)
                 .setAutoAck(false);
-        logger.info("getCustomerSubscriber() -> Fetching customer subscriber. Routing Props : " + rProperties.toString());
+        logger.info("getJobSubmissionSubscriber() -> Fetching jobsubmission subscriber. Routing Props : " + rProperties.toString());
         return new RabbitMQSubscriber(rProperties);
 
     }
 
-    private static Subscriber getOrderSubscriber(RabbitMQProperties rProperties){
-        rProperties.setExchangeName(Constants.ORDER_EXCHANGE_NAME)
-                .setQueueName(Constants.ORDER_QUEUE)
+    private static Subscriber getDataStagingSubscriber(RabbitMQProperties rProperties){
+        rProperties.setExchangeName(Constants.DATA_STAGING_EXCHANGE_NAME)
+                .setQueueName(Constants.DATA_STAGING_QUEUE)
                 .setAutoAck(false);
-        logger.info("getOrderSubscriber() -> Fetching order subscriber. Routing Props : " + rProperties.toString());
+        logger.info("getDataStagingSubscriber() -> Fetching datastaging subscriber. Routing Props : " + rProperties.toString());
         return new RabbitMQSubscriber(rProperties);
 
     }
