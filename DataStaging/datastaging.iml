@@ -19,5 +19,6 @@
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.9" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.1" level="project" />
     <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.53" level="project" />
+    <orderEntry type="module" module-name="WorkloadCommons" />
   </component>
 </module>

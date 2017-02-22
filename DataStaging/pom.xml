@@ -15,6 +15,7 @@
         <junit.version>4.11</junit.version>
         <thrift.version>0.9.3</thrift.version>
         <jcraft.version>0.1.53</jcraft.version>
+        <workloadcommons.version>0.0.1-SNAPSHOT</workloadcommons.version>
     </properties>
 
     <dependencies>
@@ -44,6 +45,11 @@
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
             <version>${jcraft.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.airavata.sga</groupId>
+            <artifactId>WorkloadCommons</artifactId>
+            <version>${workloadcommons.version}</version>
         </dependency>
 
     </dependencies>
