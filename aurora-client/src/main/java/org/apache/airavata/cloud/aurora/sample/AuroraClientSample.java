@@ -1,11 +1,9 @@
 package org.apache.airavata.cloud.aurora.sample;
 
 import java.text.MessageFormat;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.airavata.cloud.aurora.client.AuroraSchedulerClientFactory;
@@ -29,6 +27,7 @@ import org.apache.airavata.cloud.aurora.util.AuroraThriftClientUtil;
 import org.apache.airavata.cloud.aurora.util.Constants;
 import org.apache.thrift.TException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AuroraClientSample.
  */
@@ -90,6 +89,11 @@ public class AuroraClientSample {
 		}
 	}
 	
+	/**
+	 * Creates the job.
+	 *
+	 * @throws Exception the exception
+	 */
 	public static void createJob() throws Exception {
 		JobKeyBean jobKey = new JobKeyBean("devel", "centos", "test_job3");
 		IdentityBean owner = new IdentityBean("centos");
@@ -114,6 +118,11 @@ public class AuroraClientSample {
 		System.out.println(response);
 	}
 	
+	/**
+	 * Creates the gromacs MPI.
+	 *
+	 * @throws Exception the exception
+	 */
 	public static void createGromacsMPI() throws Exception {
 		JobKeyBean jobKey = new JobKeyBean("devel", "centos", "gromacs_mpi");
 		IdentityBean owner = new IdentityBean("centos");

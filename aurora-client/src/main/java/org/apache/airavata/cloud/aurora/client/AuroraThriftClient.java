@@ -78,6 +78,36 @@ public class AuroraThriftClient {
 	}
 	
 	/**
+	 * Gets the aurora thrift client.
+	 *
+	 * @param auroraHost the aurora host
+	 * @param auroraPort the aurora port
+	 * @return the aurora thrift client
+	 * @throws Exception the exception
+	 */
+	public static AuroraThriftClient getAuroraThriftClient(String auroraHost, Integer auroraPort) throws Exception {
+		try {
+			if (auroraHost == null || auroraPort == null) {
+				return getAuroraThriftClient(Constants.AURORA_SCHEDULER_PROP_FILE);
+			}
+				
+			if(thriftClient == null) {
+				thriftClient = new AuroraThriftClient();
+				
+				// construct connection url for scheduler
+				String connectionUrl = MessageFormat.format(Constants.AURORA_SCHEDULER_CONNECTION_URL, auroraHost, auroraPort);
+				
+				thriftClient.readOnlySchedulerClient = AuroraSchedulerClientFactory.createReadOnlySchedulerClient(connectionUrl);
+				thriftClient.auroraSchedulerManagerClient = AuroraSchedulerClientFactory.createSchedulerManagerClient(connectionUrl);
+			}
+		} catch(Exception ex) {
+			logger.error(ex.getMessage(), ex);
+			throw ex;
+		}
+		return thriftClient;
+	}
+	
+	/**
 	 * Creates the job.
 	 *
 	 * @param jobConfigBean the job config bean

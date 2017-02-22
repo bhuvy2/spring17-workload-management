@@ -33,20 +33,35 @@ import javax.annotation.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Container.
+ */
 @SuppressWarnings({"cast", "rawtypes", "serial", "unchecked"})
 /**
  * Describes a container to be used in a task
  */
 public class Container extends org.apache.thrift.TUnion<Container, Container._Fields> {
+  
+  /** The Constant STRUCT_DESC. */
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("Container");
+  
+  /** The Constant MESOS_FIELD_DESC. */
   private static final org.apache.thrift.protocol.TField MESOS_FIELD_DESC = new org.apache.thrift.protocol.TField("mesos", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+  
+  /** The Constant DOCKER_FIELD_DESC. */
   private static final org.apache.thrift.protocol.TField DOCKER_FIELD_DESC = new org.apache.thrift.protocol.TField("docker", org.apache.thrift.protocol.TType.STRUCT, (short)2);
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+    
+    /** The mesos. */
     MESOS((short)1, "mesos"),
+    
+    /** The docker. */
     DOCKER((short)2, "docker");
 
+    /** The Constant byName. */
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
     static {
@@ -57,6 +72,9 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
 
     /**
      * Find the _Fields constant that matches fieldId, or null if its not found.
+     *
+     * @param fieldId the field id
+     * @return the fields
      */
     public static _Fields findByThriftId(int fieldId) {
       switch(fieldId) {
@@ -72,6 +90,9 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     /**
      * Find the _Fields constant that matches fieldId, throwing an exception
      * if it is not found.
+     *
+     * @param fieldId the field id
+     * @return the fields
      */
     public static _Fields findByThriftIdOrThrow(int fieldId) {
       _Fields fields = findByThriftId(fieldId);
@@ -81,28 +102,47 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
 
     /**
      * Find the _Fields constant that matches name, or null if its not found.
+     *
+     * @param name the name
+     * @return the fields
      */
     public static _Fields findByName(String name) {
       return byName.get(name);
     }
 
+    /** The thrift id. */
     private final short _thriftId;
+    
+    /** The field name. */
     private final String _fieldName;
 
+    /**
+     * Instantiates a new fields.
+     *
+     * @param thriftId the thrift id
+     * @param fieldName the field name
+     */
     _Fields(short thriftId, String fieldName) {
       _thriftId = thriftId;
       _fieldName = fieldName;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.thrift.TFieldIdEnum#getThriftFieldId()
+     */
     public short getThriftFieldId() {
       return _thriftId;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.thrift.TFieldIdEnum#getFieldName()
+     */
     public String getFieldName() {
       return _fieldName;
     }
   }
 
+  /** The Constant metaDataMap. */
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -114,27 +154,57 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(Container.class, metaDataMap);
   }
 
+  /**
+   * Instantiates a new container.
+   */
   public Container() {
     super();
   }
 
+  /**
+   * Instantiates a new container.
+   *
+   * @param setField the set field
+   * @param value the value
+   */
   public Container(_Fields setField, Object value) {
     super(setField, value);
   }
 
+  /**
+   * Instantiates a new container.
+   *
+   * @param other the other
+   */
   public Container(Container other) {
     super(other);
   }
+  
+  /* (non-Javadoc)
+   * @see org.apache.thrift.TBase#deepCopy()
+   */
   public Container deepCopy() {
     return new Container(this);
   }
 
+  /**
+   * Mesos.
+   *
+   * @param value the value
+   * @return the container
+   */
   public static Container mesos(MesosContainer value) {
     Container x = new Container();
     x.setMesos(value);
     return x;
   }
 
+  /**
+   * Docker.
+   *
+   * @param value the value
+   * @return the container
+   */
   public static Container docker(DockerContainer value) {
     Container x = new Container();
     x.setDocker(value);
@@ -142,6 +212,9 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
   }
 
 
+  /* (non-Javadoc)
+   * @see org.apache.thrift.TUnion#checkType(org.apache.thrift.TFieldIdEnum, java.lang.Object)
+   */
   @Override
   protected void checkType(_Fields setField, Object value) throws ClassCastException {
     switch (setField) {
@@ -160,6 +233,9 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     }
   }
 
+  /* (non-Javadoc)
+   * @see org.apache.thrift.TUnion#standardSchemeReadValue(org.apache.thrift.protocol.TProtocol, org.apache.thrift.protocol.TField)
+   */
   @Override
   protected Object standardSchemeReadValue(org.apache.thrift.protocol.TProtocol iprot, org.apache.thrift.protocol.TField field) throws org.apache.thrift.TException {
     _Fields setField = _Fields.findByThriftId(field.id);
@@ -194,6 +270,9 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     }
   }
 
+  /* (non-Javadoc)
+   * @see org.apache.thrift.TUnion#standardSchemeWriteValue(org.apache.thrift.protocol.TProtocol)
+   */
   @Override
   protected void standardSchemeWriteValue(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
     switch (setField_) {
@@ -210,6 +289,9 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     }
   }
 
+  /* (non-Javadoc)
+   * @see org.apache.thrift.TUnion#tupleSchemeReadValue(org.apache.thrift.protocol.TProtocol, short)
+   */
   @Override
   protected Object tupleSchemeReadValue(org.apache.thrift.protocol.TProtocol iprot, short fieldID) throws org.apache.thrift.TException {
     _Fields setField = _Fields.findByThriftId(fieldID);
@@ -233,6 +315,9 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     }
   }
 
+  /* (non-Javadoc)
+   * @see org.apache.thrift.TUnion#tupleSchemeWriteValue(org.apache.thrift.protocol.TProtocol)
+   */
   @Override
   protected void tupleSchemeWriteValue(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
     switch (setField_) {
@@ -249,6 +334,9 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     }
   }
 
+  /* (non-Javadoc)
+   * @see org.apache.thrift.TUnion#getFieldDesc(org.apache.thrift.TFieldIdEnum)
+   */
   @Override
   protected org.apache.thrift.protocol.TField getFieldDesc(_Fields setField) {
     switch (setField) {
@@ -261,21 +349,35 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     }
   }
 
+  /* (non-Javadoc)
+   * @see org.apache.thrift.TUnion#getStructDesc()
+   */
   @Override
   protected org.apache.thrift.protocol.TStruct getStructDesc() {
     return STRUCT_DESC;
   }
 
+  /* (non-Javadoc)
+   * @see org.apache.thrift.TUnion#enumForId(short)
+   */
   @Override
   protected _Fields enumForId(short id) {
     return _Fields.findByThriftIdOrThrow(id);
   }
 
+  /* (non-Javadoc)
+   * @see org.apache.thrift.TBase#fieldForId(int)
+   */
   public _Fields fieldForId(int fieldId) {
     return _Fields.findByThriftId(fieldId);
   }
 
 
+  /**
+   * Gets the mesos.
+   *
+   * @return the mesos
+   */
   public MesosContainer getMesos() {
     if (getSetField() == _Fields.MESOS) {
       return (MesosContainer)getFieldValue();
@@ -284,12 +386,22 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     }
   }
 
+  /**
+   * Sets the mesos.
+   *
+   * @param value the new mesos
+   */
   public void setMesos(MesosContainer value) {
     if (value == null) throw new NullPointerException();
     setField_ = _Fields.MESOS;
     value_ = value;
   }
 
+  /**
+   * Gets the docker.
+   *
+   * @return the docker
+   */
   public DockerContainer getDocker() {
     if (getSetField() == _Fields.DOCKER) {
       return (DockerContainer)getFieldValue();
@@ -298,22 +410,40 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     }
   }
 
+  /**
+   * Sets the docker.
+   *
+   * @param value the new docker
+   */
   public void setDocker(DockerContainer value) {
     if (value == null) throw new NullPointerException();
     setField_ = _Fields.DOCKER;
     value_ = value;
   }
 
+  /**
+   * Checks if is sets the mesos.
+   *
+   * @return true, if is sets the mesos
+   */
   public boolean isSetMesos() {
     return setField_ == _Fields.MESOS;
   }
 
 
+  /**
+   * Checks if is sets the docker.
+   *
+   * @return true, if is sets the docker
+   */
   public boolean isSetDocker() {
     return setField_ == _Fields.DOCKER;
   }
 
 
+  /* (non-Javadoc)
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
   public boolean equals(Object other) {
     if (other instanceof Container) {
       return equals((Container)other);
@@ -322,10 +452,19 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     }
   }
 
+  /**
+   * Equals.
+   *
+   * @param other the other
+   * @return true, if successful
+   */
   public boolean equals(Container other) {
     return other != null && getSetField() == other.getSetField() && getFieldValue().equals(other.getFieldValue());
   }
 
+  /* (non-Javadoc)
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
   @Override
   public int compareTo(Container other) {
     int lastComparison = org.apache.thrift.TBaseHelper.compareTo(getSetField(), other.getSetField());
@@ -336,6 +475,9 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
   }
 
 
+  /* (non-Javadoc)
+   * @see java.lang.Object#hashCode()
+   */
   @Override
   public int hashCode() {
     List<Object> list = new ArrayList<Object>();
@@ -352,6 +494,13 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
     }
     return list.hashCode();
   }
+  
+  /**
+   * Write object.
+   *
+   * @param out the out
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
     try {
       write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
@@ -361,6 +510,13 @@ public class Container extends org.apache.thrift.TUnion<Container, Container._Fi
   }
 
 
+  /**
+   * Read object.
+   *
+   * @param in the in
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ClassNotFoundException the class not found exception
+   */
   private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
     try {
       read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));

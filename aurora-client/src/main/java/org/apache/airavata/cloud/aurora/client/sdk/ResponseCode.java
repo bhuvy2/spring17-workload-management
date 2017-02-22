@@ -11,11 +11,25 @@ import java.util.Map;
 import java.util.HashMap;
 import org.apache.thrift.TEnum;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum ResponseCode.
+ */
 public enum ResponseCode implements org.apache.thrift.TEnum {
+  
+  /** The invalid request. */
   INVALID_REQUEST(0),
+  
+  /** The ok. */
   OK(1),
+  
+  /** The error. */
   ERROR(2),
+  
+  /** The warning. */
   WARNING(3),
+  
+  /** The auth failed. */
   AUTH_FAILED(4),
   /**
    * Raised when a Lock-protected operation failed due to lock validation.
@@ -26,14 +40,22 @@ public enum ResponseCode implements org.apache.thrift.TEnum {
    */
   ERROR_TRANSIENT(6);
 
+  /** The value. */
   private final int value;
 
+  /**
+   * Instantiates a new response code.
+   *
+   * @param value the value
+   */
   private ResponseCode(int value) {
     this.value = value;
   }
 
   /**
    * Get the integer value of this enum value, as defined in the Thrift IDL.
+   *
+   * @return the value
    */
   public int getValue() {
     return value;
@@ -41,6 +63,8 @@ public enum ResponseCode implements org.apache.thrift.TEnum {
 
   /**
    * Find a the enum type by its integer value, as defined in the Thrift IDL.
+   *
+   * @param value the value
    * @return null if the value is not found.
    */
   public static ResponseCode findByValue(int value) { 

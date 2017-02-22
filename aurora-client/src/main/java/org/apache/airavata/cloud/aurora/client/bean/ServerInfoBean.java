@@ -1,5 +1,6 @@
 package org.apache.airavata.cloud.aurora.client.bean;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ServerInfoBean.
  */
