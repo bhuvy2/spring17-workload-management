@@ -20,13 +20,11 @@
  */
 package org.apache.airavata.sga.messaging.service.core;
 
-import org.apache.airavata.sga.messaging.service.core.impl.CustomerConsumer;
 import org.apache.airavata.sga.messaging.service.core.impl.MessageConsumer;
 import org.apache.airavata.sga.messaging.service.core.impl.RabbitMQPublisher;
 import org.apache.airavata.sga.messaging.service.core.impl.RabbitMQSubscriber;
 import org.apache.airavata.sga.messaging.service.util.Constants;
 import org.apache.airavata.sga.messaging.service.util.RabbitMQProperties;
-import org.apache.airavata.sga.messaging.service.util.Type;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -38,7 +36,7 @@ public class MessagingFactory {
 
     public static Publisher getPublisher(RabbitMQProperties rProperties) {
         logger.info("getJobSubmissionPublisher() -> Fetching jobsubmission publisher. Routing Props : " + rProperties.toString());
-        return new RabbitMQPublisher(rProperties, Constants.JOB_SUBMISSION_ROUTING_KEY);
+        return new RabbitMQPublisher(rProperties);
     }
 
     public static Subscriber getSubscriber(final MessageHandler messageHandler, RabbitMQProperties rProperties) {
