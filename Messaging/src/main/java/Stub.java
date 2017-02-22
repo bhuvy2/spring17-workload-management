@@ -48,26 +48,4 @@ public class Stub {
     public static void main(String[] args) throws Exception{
         new Stub();
     }
-
-    private class OrderMessageHandler implements MessageHandler {
-        /**
-         * This method only handle MessageType.PROCESS type messages.
-         * @param message
-         */
-        @Override
-        public void onMessage(MessageContext message) {
-
-            try {
-                Customer customer = new Customer();
-                TBase event = message.getEvent();
-                byte[] bytes = ThriftUtils.serializeThriftObject(event);
-                Orders order = new Orders();
-                ThriftUtils.createThriftFromBytes(bytes, order);
-                System.out.println(order);
-
-            } catch (TException e) {
-               e.printStackTrace();
-            }
-        }
-    }
 }

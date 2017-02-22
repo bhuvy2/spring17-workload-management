@@ -11,7 +11,7 @@ public class Constants {
     public static final String CONSUMER_TAG = "default";
     public static final boolean IS_DURABLE_QUEUE = true;
     public static final int PREFETCH_COUT = 20;
-    
+
     public static final String JOB_SUBMISSION_EXCHANGE_NAME = "exchange.jobsubmission";
     public static final String DATA_STAGING_EXCHANGE_NAME = "exchange.datastaging";
     
