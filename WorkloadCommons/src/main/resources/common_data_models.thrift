@@ -28,7 +28,8 @@ enum Status {
 	CREATED = 201,
 	ACCEPTED = 202,
 	NOT_FOUND = 404,
-	BAD_REQUEST = 401
+	BAD_REQUEST = 401,
+	FAILED = 500
 }
 
 struct TargetMachine {
@@ -76,8 +77,9 @@ struct TaskContext {
 }
 
 struct Response {
-	1: required Status status,
-	2: optional string message
+	1: required string experimentId,
+	2: required Status status,
+	3: optional string message
 }
 
 exception OperationFailedException {

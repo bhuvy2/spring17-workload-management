@@ -16,7 +16,8 @@ public enum Status implements org.apache.thrift.TEnum {
   CREATED(201),
   ACCEPTED(202),
   NOT_FOUND(404),
-  BAD_REQUEST(401);
+  BAD_REQUEST(401),
+  FAILED(500);
 
   private final int value;
 
@@ -47,6 +48,8 @@ public enum Status implements org.apache.thrift.TEnum {
         return NOT_FOUND;
       case 401:
         return BAD_REQUEST;
+      case 500:
+        return FAILED;
       default:
         return null;
     }
