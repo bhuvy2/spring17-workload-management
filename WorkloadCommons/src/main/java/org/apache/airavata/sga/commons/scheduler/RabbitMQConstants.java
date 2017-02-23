@@ -24,9 +24,9 @@ public class RabbitMQConstants {
 		
 	// Scheduler RabbitMQ property names
 	private static final String SCHEDULER_PROP_FILE_NAME = "rabbitmq.properties";
-	private static final String SCHEDULER_EXCHANGE_PROP = "jobsubmission.exchange.name";
-	private static final String SCHEDULER_QUEUE_PROP = "jobsubmission.queue";
-	private static final String SCHEDULER_ROUTING_KEY_PROP = "jobsubmission.routing.key";
+	private static final String SCHEDULER_EXCHANGE_PROP = "scheduler.exchange.name";
+	private static final String SCHEDULER_QUEUE_PROP = "scheduler.queue";
+	private static final String SCHEDULER_ROUTING_KEY_PROP = "scheduler.routing.key";
 	
 	// Scheduler RabbitMQ property values
 	public static final String SCHEDULER_QUEUE;

@@ -35,7 +35,7 @@ public class MessagingFactory {
     private static final Logger logger = LogManager.getLogger(MessagingFactory.class);
 
     public static Publisher getPublisher(RabbitMQProperties rProperties) {
-        logger.info("getJobSubmissionPublisher() -> Fetching jobsubmission publisher. Routing Props : " + rProperties.toString());
+        logger.info("getPublisher() -> Fetching publisher. Routing Props : " + rProperties.toString());
         return new RabbitMQPublisher(rProperties);
     }
 

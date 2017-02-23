@@ -63,10 +63,10 @@ public class MessageConsumer extends QueueingConsumer {
             logger.info("handleDelivery() -> Handling message delivery. Consumer Tag : " + consumerTag);
             ThriftUtils.createThriftFromBytes(body, message);
 
-            TaskContext experimentEvent = new TaskContext();
-            ThriftUtils.createThriftFromBytes(message.getEvent(), experimentEvent);
+//            TaskContext experimentEvent = new TaskContext();
+//            ThriftUtils.createThriftFromBytes(message.getEvent(), experimentEvent);
 
-            MessageContext messageContext = new MessageContext(experimentEvent, message.getMessageId(), envelope.getDeliveryTag());
+            MessageContext messageContext = new MessageContext(message, message.getMessageId(), envelope.getDeliveryTag());
             handler.onMessage(messageContext);
             //sendAck(deliveryTag);
 

@@ -43,7 +43,7 @@ public class JobSubmissionTaskPublisher {
 	public static Publisher getSchedulerPublisher() {
 		if (schedulerPublisher == null) {
 			logger.info("Initializing Scheduler publisher");
-			publisher = MessagingFactory.getPublisher(Constants.SCHEDULER_RABBITMQ_PROPERTIES);
+			schedulerPublisher = MessagingFactory.getPublisher(Constants.SCHEDULER_RABBITMQ_PROPERTIES);
 		}
 		return schedulerPublisher;
 	}

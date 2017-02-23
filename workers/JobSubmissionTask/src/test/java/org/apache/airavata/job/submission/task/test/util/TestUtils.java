@@ -2,6 +2,7 @@ package org.apache.airavata.job.submission.task.test.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.airavata.sga.commons.model.Application;
@@ -10,7 +11,11 @@ import org.apache.airavata.sga.commons.model.MachineType;
 import org.apache.airavata.sga.commons.model.TargetMachine;
 import org.apache.airavata.sga.commons.model.TaskContext;
 import org.apache.airavata.sga.job.submission.task.messaging.JobSubmissionTaskPublisher;
+import org.apache.airavata.sga.job.submission.task.util.Constants;
+import org.apache.airavata.sga.messaging.service.core.MessagingFactory;
 import org.apache.airavata.sga.messaging.service.core.Publisher;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * The Class TestUtils.
@@ -18,6 +23,11 @@ import org.apache.airavata.sga.messaging.service.core.Publisher;
  * @author goshenoy
  */
 public class TestUtils {
+	
+	/** The Constant logger. */
+	private static final Logger logger = LogManager.getLogger(TestUtils.class);
+	
+	
 
 	/**
 	 * Gets the task context.
@@ -62,5 +72,15 @@ public class TestUtils {
 	 */
 	public static Publisher getPublisher() {
 		return JobSubmissionTaskPublisher.getPublisher();
+	}
+	
+	/**
+	 * Start mock scheduler subscriber.
+	 */
+	public static void startMockSchedulerSubscriber(CountDownLatch latch) {
+		logger.info("Initializing Scheduler subscriber..");
+		MessagingFactory.getSubscriber(new MockSchedulerHandler(latch),
+				Constants.SCHEDULER_RABBITMQ_PROPERTIES);
+		logger.info("Scheduler subscriber now listening.");
 	}
 }
