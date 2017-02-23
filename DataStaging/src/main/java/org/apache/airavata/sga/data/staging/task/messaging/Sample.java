@@ -24,7 +24,7 @@ public class Sample {
 
     public Sample(){
         publisher = MessagingFactory.getPublisher(Constants.DATA_STAGING_RABBITMQ_PROPERTIES);
-        //environmentSetupSubscriber = MessagingFactory.getSubscriber(new EnvironmentSetupMessageHandler(), Constants.ENVIRONMENT_SETUP_RABBITMQ_PROPERTIES);
+        environmentSetupSubscriber = MessagingFactory.getSubscriber(new EnvironmentSetupMessageHandler(), Constants.ENVIRONMENT_SETUP_RABBITMQ_PROPERTIES);
         dataStagingubscriber = MessagingFactory.getSubscriber(new DataStagingMessageHandler(), Constants.DATA_STAGING_RABBITMQ_PROPERTIES);
     }
     public static void main(String... args){

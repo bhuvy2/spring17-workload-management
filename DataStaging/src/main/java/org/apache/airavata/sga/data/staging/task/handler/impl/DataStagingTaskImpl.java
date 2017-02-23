@@ -44,6 +44,7 @@ public class DataStagingTaskImpl implements CommonTask {
             RemoteCluster remoteCluster = new RemoteClusterImpl(localMachine, targetMachine, taskContext.getTargetMachine().getDtProtocol());
             remoteCluster.thirdPartyTransfer(taskContext.getLocalStorage().getScratchDir(), taskContext.getTargetMachine().getScratchDir(), true);
 
+            logger.info("execute() -> File transferred successfully. Experiment Id : " + taskContext.getExperiment().getExperimentId() + ", Source : " + taskContext.getLocalStorage().getScratchDir() + ", Destination : " + taskContext.getTargetMachine().getScratchDir());
             response.setStatus(Status.OK);
             response.setMessage("File staged successfully.");
 

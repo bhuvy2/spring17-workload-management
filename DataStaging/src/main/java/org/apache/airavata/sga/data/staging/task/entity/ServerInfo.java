@@ -8,7 +8,7 @@ public class ServerInfo {
     private String host;
     private String userName;
     private int port;
-    private String privateKey;
+    private String privateKey = "/Users/Ajinkya/.ssh/id_rsa";
 
     public ServerInfo(String userName, String host, String privateKey) {
         this(userName, host, privateKey, DEFAULT_PORT);
@@ -18,7 +18,7 @@ public class ServerInfo {
         this.host = host;
         this.userName = userName;
         this.port = port;
-        this.privateKey = privateKey;
+        //this.privateKey = privateKey;
     }
 
     public String getHost() {

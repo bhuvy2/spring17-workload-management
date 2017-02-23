@@ -22,5 +22,8 @@
     <orderEntry type="module" module-name="WorkloadCommons" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
+    <orderEntry type="module" module-name="Rabbitmq" />
+    <orderEntry type="library" name="Maven: com.rabbitmq:amqp-client:3.5.5" level="project" />
+    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.6" level="project" />
   </component>
 </module>

@@ -22,7 +22,7 @@ public class Factory {
 
     public static Session getSSHSession(ServerInfo serverInfo) throws JSchException {
 
-        logger.info("getSSHSession() -> Creating ssh session. User : " + serverInfo.getUserName());
+        logger.info("getSSHSession() -> Creating ssh session. User : " + serverInfo.getUserName() + ", Host : " + serverInfo.getHost());
 
         Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");
@@ -33,6 +33,9 @@ public class Factory {
         Session session = jsch.getSession(serverInfo.getUserName(), serverInfo.getHost(), serverInfo.getPort());
 
         session.setConfig(config);
+
+        logger.debug("getSSHSession() -> Session created. User : " + serverInfo.getUserName() + ", Host : " + serverInfo.getHost());
+
         return session;
     }
 

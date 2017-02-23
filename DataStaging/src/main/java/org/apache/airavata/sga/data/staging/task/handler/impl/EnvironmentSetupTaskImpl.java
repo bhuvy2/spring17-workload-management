@@ -41,6 +41,8 @@ public class EnvironmentSetupTaskImpl implements CommonTask {
             RemoteCluster remoteCluster = new RemoteClusterImpl(targetMachine, taskContext.getTargetMachine().getDtProtocol());
             remoteCluster.makeDirectory(taskContext.getTargetMachine().getScratchDir());
 
+            logger.info("execute() -> Environment created successfully. Experiment Id : " + taskContext.getExperiment().getExperimentId() + ", Remote directory : " + taskContext.getTargetMachine().getScratchDir());
+
             response.setStatus(Status.OK);
             response.setMessage("Environment created successfully.");
 
