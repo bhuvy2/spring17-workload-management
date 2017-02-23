@@ -68,9 +68,7 @@ public class RabbitMQSubscriber implements Subscriber {
     }
 
     @Override
-    public String listen(BiFunction<Connection, Channel, Consumer> supplier,
-                         String queueName,
-                         String routingKey){
+    public String listen(BiFunction<Connection, Channel, Consumer> supplier){
 
         try {
             if (!channel.isOpen()) {
@@ -81,31 +79,29 @@ public class RabbitMQSubscriber implements Subscriber {
                  */
                 //channel.exchangeDeclare(properties.getExchangeName(), properties.getExchangeType(), true);
             }
-            if (queueName == null) {
-                queueName = channel.queueDeclare().getQueue();
-            } else {
-                channel.queueDeclare(queueName,
-                                     true, // durable
-                                     false, // exclusive
-                                     false, // autoDelete
-                                     null);// arguments
-            }
-            final String id = getId(routingKey, queueName);
+
+            channel.queueDeclare(properties.getQueueName(),
+                    properties.isDurable(), // durable
+                    false, // exclusive
+                    false, // autoDelete
+                    null);// arguments
+
+            final String id = getId(properties.getRoutingKey(), properties.getQueueName());
             if (queueDetailMap.containsKey(id)) {
                 throw new IllegalStateException("This subscriber is already defined for this Subscriber, " +
                         "cannot define the same subscriber twice");
             }
-            // bind all the routing keys
-            channel.queueBind(queueName, properties.getExchangeName(), routingKey);
-            channel.basicConsume(queueName,
+
+            //channel.queueBind(queueName, properties.getExchangeName(), routingKey);
+            channel.basicConsume(properties.getQueueName(),
                     properties.isAutoAck(),
                     properties.getConsumerTag(),
                     supplier.apply(connection, channel));
 
-            queueDetailMap.put(id, new QueueDetail(queueName, routingKey));
+            queueDetailMap.put(id, new QueueDetail(properties.getQueueName(), properties.getRoutingKey()));
             return id;
         } catch (IOException e) {
-            logger.error("listen() -> Error listening to queue. Queue Name : " + queueName, e);
+            logger.error("listen() -> Error listening to queue. Queue Name : " + properties.getQueueName(), e);
         }
         return "-1";
     }

@@ -29,6 +29,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeoutException;
 
 public class RabbitMQPublisher implements Publisher {
 
@@ -59,13 +63,19 @@ public class RabbitMQPublisher implements Publisher {
 
             channel = connection.createChannel();
 
+            channel.queueDeclare(properties.getQueueName(),
+                    properties.isDurable(), // durable
+                    false, // exclusive
+                    false, // autoDelete
+                    null);// arguments
+
             /*
             Not required for work queue implementation
              */
             //channel.basicQos(properties.getPrefetchCount());
             //channel.exchangeDeclare(properties.getExchangeName(), properties.getExchangeType(), true);
 
-        } catch (Exception e) {
+        } catch (IOException | NoSuchAlgorithmException | URISyntaxException | TimeoutException | KeyManagementException e) {
             logger.error("connect() -> Error connecting to server.", e);
         }
 
@@ -91,7 +101,7 @@ public class RabbitMQPublisher implements Publisher {
 
     public void send(byte []message) throws Exception {
         try {
-            channel.basicPublish(properties.getExchangeName(), properties.getRoutingKey(), MessageProperties.PERSISTENT_TEXT_PLAIN, message);
+            channel.basicPublish(properties.getExchangeName(), properties.getQueueName(), MessageProperties.PERSISTENT_TEXT_PLAIN, message);
         } catch (IOException e) {
             logger.error("send() -> Error sending message.", e);
         }

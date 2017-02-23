@@ -44,9 +44,7 @@ public class MessagingFactory {
         logger.info("getSubscriber() -> Creating subscriber. Routing keys : " + rProperties.getRoutingKey() + ", Routing Props : " + rProperties.toString());
 
         Subscriber subscriber = new RabbitMQSubscriber(rProperties);
-        subscriber.listen(((connection, channel) -> new MessageConsumer(messageHandler, connection, channel)),
-                rProperties.getQueueName(),
-                rProperties.getRoutingKey());
+        subscriber.listen(((connection, channel) -> new MessageConsumer(messageHandler, connection, channel)));
 
         logger.debug("getSubscriber() -> Subscriber created. Routing keys : " + rProperties.getRoutingKey() + ", Routing Props : " + rProperties.toString());
 

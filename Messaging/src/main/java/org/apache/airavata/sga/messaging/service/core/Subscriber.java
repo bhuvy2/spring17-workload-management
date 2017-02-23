@@ -38,9 +38,7 @@ public interface Subscriber {
      * @return string id
      * @throws
      */
-    String listen(BiFunction<Connection, Channel, Consumer> supplier,
-                  String queueName,
-                  String routingKey);
+    String listen(BiFunction<Connection, Channel, Consumer> supplier);
 
     void stopListen(final String id);
 

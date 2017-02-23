@@ -52,6 +52,7 @@ public class Constants {
         RabbitMQProperties rabbitMQProperties = getProperties();
         rabbitMQProperties.setRoutingKey(properties.getProperty(DATA_STAGING_ROUTING_KEY));
         rabbitMQProperties.setExchangeName(properties.getProperty(DATA_STAGING_EXCHANGE_NAME));
+        rabbitMQProperties.setExchangeName(properties.getProperty(DATA_STAGING_EXCHANGE_NAME));
         rabbitMQProperties.setQueueName(properties.getProperty(DATA_STAGING_QUEUE));
         return rabbitMQProperties;
     }
