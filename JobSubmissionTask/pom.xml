@@ -11,6 +11,7 @@
 		<slf4j.version>1.7.5</slf4j.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
+		<thrift.version>0.9.3</thrift.version>
 		<sga.version>0.0.1-SNAPSHOT</sga.version>
 	</properties>
 
@@ -21,14 +22,14 @@
 			<artifactId>aurora-client</artifactId>
 			<version>0.17-SNAPSHOT</version>
 		</dependency>
-		
-		<!-- Workflow Commons -->
+
+		<!-- Workload Commons -->
 		<dependency>
 			<groupId>org.apache.airavata.sga</groupId>
 			<artifactId>WorkloadCommons</artifactId>
 			<version>${sga.version}</version>
 		</dependency>
-		
+
 		<!-- Messaging -->
 		<dependency>
 			<groupId>org.apache.airavata.sga</groupId>
@@ -36,8 +37,18 @@
 			<version>${sga.version}</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
+		<directory>target</directory>
+		<outputDirectory>target/classes</outputDirectory>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -46,6 +57,30 @@
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<manifestEntries>
+										<Main-Class>org.apache.airavata.sga.job.submission.task.runner.JobSubmissionTaskRunner</Main-Class>
+										<Build-Number>${version}</Build-Number>
+									</manifestEntries>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

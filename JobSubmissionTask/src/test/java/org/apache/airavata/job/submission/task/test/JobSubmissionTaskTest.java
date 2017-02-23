@@ -62,9 +62,9 @@ public class JobSubmissionTaskTest {
 	 * @throws InterruptedException
 	 */
 	public static void main(String[] args) throws InterruptedException {
-		JobSubmissionTaskTest test = new JobSubmissionTaskTest();
-		test.testSubmitCloudJob();
-		test.testCloudJobSubmissionTaskImpl();
+//		JobSubmissionTaskTest test = new JobSubmissionTaskTest();
+//		test.testSubmitCloudJob();
+//		test.testCloudJobSubmissionTaskImpl();
 
 		// load test with concurrent submissions
 		// Runnable runnable = new Runnable() {
