@@ -28,6 +28,13 @@
 			<artifactId>WorkloadCommons</artifactId>
 			<version>${sga.version}</version>
 		</dependency>
+		
+		<!-- Messaging -->
+		<dependency>
+			<groupId>org.apache.airavata.sga</groupId>
+			<artifactId>Messaging</artifactId>
+			<version>${sga.version}</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
