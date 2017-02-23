@@ -48,11 +48,11 @@ public class TestUtils {
 
 		// create target machine
 		TargetMachine target = new TargetMachine();
-		target.setHostname("sga-mesos-master");
-		target.setPort(8081);
-		target.setLoginId("centos");
+		target.setHostname("iris.ils.indiana.edu");
+		target.setPort(22);
+		target.setLoginId("adhamnas");
 		target.setMachineType(MachineType.CLOUD);
-		target.setScratchDir("scratch");
+		target.setScratchDir("/home/adhamnas/www/test4/test/");
 		target.setDtProtocol(DataTransferProtocol.SCP);
 		// create taskcontext
 		TaskContext taskContext = new TaskContext();
