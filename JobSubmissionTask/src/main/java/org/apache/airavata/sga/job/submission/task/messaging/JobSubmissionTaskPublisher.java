@@ -19,6 +19,9 @@ public class JobSubmissionTaskPublisher {
 	/** The publisher. */
 	private static Publisher publisher;
 	
+	/** The scheduler publisher. */
+	private static Publisher schedulerPublisher;
+	
 	/**
 	 * Gets the publisher.
 	 *
@@ -30,5 +33,18 @@ public class JobSubmissionTaskPublisher {
 			publisher = MessagingFactory.getPublisher(Constants.JOB_SUBMISSION_RABBITMQ_PROPERTIES);
 		}
 		return publisher;
+	}
+	
+	/**
+	 * Gets the scheduler publisher.
+	 *
+	 * @return the scheduler publisher
+	 */
+	public static Publisher getSchedulerPublisher() {
+		if (schedulerPublisher == null) {
+			logger.info("Initializing Scheduler publisher");
+			publisher = MessagingFactory.getPublisher(Constants.SCHEDULER_RABBITMQ_PROPERTIES);
+		}
+		return schedulerPublisher;
 	}
 }
