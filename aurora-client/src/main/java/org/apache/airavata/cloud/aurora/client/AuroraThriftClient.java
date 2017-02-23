@@ -41,9 +41,6 @@ public class AuroraThriftClient {
 	/** The aurora scheduler manager client. */
 	private AuroraSchedulerManager.Client auroraSchedulerManagerClient = null;
 	
-	/** The thrift client. */
-	private static AuroraThriftClient thriftClient = null;
-	
 	/**
 	 * Instantiates a new aurora thrift client.
 	 */
@@ -57,19 +54,18 @@ public class AuroraThriftClient {
 	 * @throws Exception the exception
 	 */
 	public static AuroraThriftClient getAuroraThriftClient(String auroraSchedulerPropFile) throws Exception {
+		AuroraThriftClient thriftClient;
 		try {
-			if(thriftClient == null) {
-				thriftClient = new AuroraThriftClient();
-				
-				// construct connection url for scheduler
-				properties.load(AuroraClientSample.class.getClassLoader().getResourceAsStream(auroraSchedulerPropFile));
-				String auroraHost = properties.getProperty(Constants.AURORA_SCHEDULER_HOST);
-				String auroraPort = properties.getProperty(Constants.AURORA_SCHEDULER_PORT);
-				String connectionUrl = MessageFormat.format(Constants.AURORA_SCHEDULER_CONNECTION_URL, auroraHost, auroraPort);
-				
-				thriftClient.readOnlySchedulerClient = AuroraSchedulerClientFactory.createReadOnlySchedulerClient(connectionUrl);
-				thriftClient.auroraSchedulerManagerClient = AuroraSchedulerClientFactory.createSchedulerManagerClient(connectionUrl);
-			}
+			thriftClient = new AuroraThriftClient();
+			
+			// construct connection url for scheduler
+			properties.load(AuroraClientSample.class.getClassLoader().getResourceAsStream(auroraSchedulerPropFile));
+			String auroraHost = properties.getProperty(Constants.AURORA_SCHEDULER_HOST);
+			String auroraPort = properties.getProperty(Constants.AURORA_SCHEDULER_PORT);
+			String connectionUrl = MessageFormat.format(Constants.AURORA_SCHEDULER_CONNECTION_URL, auroraHost, auroraPort);
+			
+			thriftClient.readOnlySchedulerClient = AuroraSchedulerClientFactory.createReadOnlySchedulerClient(connectionUrl);
+			thriftClient.auroraSchedulerManagerClient = AuroraSchedulerClientFactory.createSchedulerManagerClient(connectionUrl);
 		} catch(Exception ex) {
 			logger.error(ex.getMessage(), ex);
 			throw ex;
@@ -86,20 +82,19 @@ public class AuroraThriftClient {
 	 * @throws Exception the exception
 	 */
 	public static AuroraThriftClient getAuroraThriftClient(String auroraHost, Integer auroraPort) throws Exception {
+		AuroraThriftClient thriftClient;
 		try {
 			if (auroraHost == null || auroraPort == null) {
 				return getAuroraThriftClient(Constants.AURORA_SCHEDULER_PROP_FILE);
 			}
-				
-			if(thriftClient == null) {
-				thriftClient = new AuroraThriftClient();
-				
-				// construct connection url for scheduler
-				String connectionUrl = MessageFormat.format(Constants.AURORA_SCHEDULER_CONNECTION_URL, auroraHost, auroraPort);
-				
-				thriftClient.readOnlySchedulerClient = AuroraSchedulerClientFactory.createReadOnlySchedulerClient(connectionUrl);
-				thriftClient.auroraSchedulerManagerClient = AuroraSchedulerClientFactory.createSchedulerManagerClient(connectionUrl);
-			}
+			
+			thriftClient = new AuroraThriftClient();
+			
+			// construct connection url for scheduler
+			String connectionUrl = MessageFormat.format(Constants.AURORA_SCHEDULER_CONNECTION_URL, auroraHost, auroraPort.toString());
+			
+			thriftClient.readOnlySchedulerClient = AuroraSchedulerClientFactory.createReadOnlySchedulerClient(connectionUrl);
+			thriftClient.auroraSchedulerManagerClient = AuroraSchedulerClientFactory.createSchedulerManagerClient(connectionUrl);
 		} catch(Exception ex) {
 			logger.error(ex.getMessage(), ex);
 			throw ex;
@@ -224,4 +219,8 @@ public class AuroraThriftClient {
 		}
 		return response;
 	}
+	
+//	public static void main(String[] args) {
+//		System.out.println(MessageFormat.format(Constants.AURORA_SCHEDULER_CONNECTION_URL, "localhost", new Integer(8081).toString()));
+//	}
 }
