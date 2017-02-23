@@ -35,26 +35,26 @@ enum Status {
 struct TargetMachine {
 	1: required string hostname,
 	2: required integer port,
-	3: required string scratchDir,
+	3: optional string scratchDir,
 	4: required string loginId
-	5: required DataTransferProtocol dtProtocol,
+	5: optional DataTransferProtocol dtProtocol,
 	6: required MachineType machineType
 }
 
 struct LocalStorage {
 	1: required string hostname,
 	2: required integer port,
-	3: required string scratchDir,
+	3: optional string scratchDir,
 	4: required string loginId
-	5: required DataTransferProtocol dtProtocol
+	5: optional DataTransferProtocol dtProtocol
 }
 
 struct Experiment {
 	1: required string experimentId,
-	2: required string workingDir,
-	3: optional double numCPU = 0.2,
-	4: optional long diskMB = 10,
-	5: optional long ramMB = 128
+	2: optional string workingDir,
+	3: required double numCPU = 0.2,
+	4: required long diskMB = 10,
+	5: required long ramMB = 128
 }
 
 struct Data {
@@ -65,7 +65,7 @@ struct Data {
 
 struct Application {
 	1: required list<string> commands,
-	2: required list<Data> inputs,
+	2: optional list<Data> inputs,
 	3: optional list<Data> outputs
 }
 
@@ -83,6 +83,6 @@ struct Response {
 }
 
 exception OperationFailedException {
-	1: string message
+	1: required string message
 }
 

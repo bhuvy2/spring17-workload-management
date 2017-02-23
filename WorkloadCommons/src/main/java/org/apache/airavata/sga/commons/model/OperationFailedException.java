@@ -110,7 +110,7 @@ public class OperationFailedException extends TException implements org.apache.t
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-    tmpMap.put(_Fields.MESSAGE, new org.apache.thrift.meta_data.FieldMetaData("message", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+    tmpMap.put(_Fields.MESSAGE, new org.apache.thrift.meta_data.FieldMetaData("message", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(OperationFailedException.class, metaDataMap);
@@ -291,6 +291,9 @@ public class OperationFailedException extends TException implements org.apache.t
 
   public void validate() throws org.apache.thrift.TException {
     // check for required fields
+    if (message == null) {
+      throw new org.apache.thrift.protocol.TProtocolException("Required field 'message' was not present! Struct: " + toString());
+    }
     // check for sub-struct validity
   }
 
@@ -373,24 +376,14 @@ public class OperationFailedException extends TException implements org.apache.t
     @Override
     public void write(org.apache.thrift.protocol.TProtocol prot, OperationFailedException struct) throws org.apache.thrift.TException {
       TTupleProtocol oprot = (TTupleProtocol) prot;
-      BitSet optionals = new BitSet();
-      if (struct.isSetMessage()) {
-        optionals.set(0);
-      }
-      oprot.writeBitSet(optionals, 1);
-      if (struct.isSetMessage()) {
-        oprot.writeString(struct.message);
-      }
+      oprot.writeString(struct.message);
     }
 
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, OperationFailedException struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
-      BitSet incoming = iprot.readBitSet(1);
-      if (incoming.get(0)) {
-        struct.message = iprot.readString();
-        struct.setMessageIsSet(true);
-      }
+      struct.message = iprot.readString();
+      struct.setMessageIsSet(true);
     }
   }
 

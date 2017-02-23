@@ -53,13 +53,13 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
 
   public String hostname; // required
   public int port; // required
-  public String scratchDir; // required
+  public String scratchDir; // optional
   public String loginId; // required
   /**
    * 
    * @see DataTransferProtocol
    */
-  public DataTransferProtocol dtProtocol; // required
+  public DataTransferProtocol dtProtocol; // optional
   /**
    * 
    * @see MachineType
@@ -150,6 +150,7 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
   // isset id assignments
   private static final int __PORT_ISSET_ID = 0;
   private byte __isset_bitfield = 0;
+  private static final _Fields optionals[] = {_Fields.SCRATCH_DIR,_Fields.DT_PROTOCOL};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -157,11 +158,11 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.PORT, new org.apache.thrift.meta_data.FieldMetaData("port", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32        , "integer")));
-    tmpMap.put(_Fields.SCRATCH_DIR, new org.apache.thrift.meta_data.FieldMetaData("scratchDir", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+    tmpMap.put(_Fields.SCRATCH_DIR, new org.apache.thrift.meta_data.FieldMetaData("scratchDir", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.LOGIN_ID, new org.apache.thrift.meta_data.FieldMetaData("loginId", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
-    tmpMap.put(_Fields.DT_PROTOCOL, new org.apache.thrift.meta_data.FieldMetaData("dtProtocol", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+    tmpMap.put(_Fields.DT_PROTOCOL, new org.apache.thrift.meta_data.FieldMetaData("dtProtocol", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.EnumMetaData(org.apache.thrift.protocol.TType.ENUM, DataTransferProtocol.class)));
     tmpMap.put(_Fields.MACHINE_TYPE, new org.apache.thrift.meta_data.FieldMetaData("machineType", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.EnumMetaData(org.apache.thrift.protocol.TType.ENUM, MachineType.class)));
@@ -175,18 +176,14 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
   public TargetMachine(
     String hostname,
     int port,
-    String scratchDir,
     String loginId,
-    DataTransferProtocol dtProtocol,
     MachineType machineType)
   {
     this();
     this.hostname = hostname;
     this.port = port;
     setPortIsSet(true);
-    this.scratchDir = scratchDir;
     this.loginId = loginId;
-    this.dtProtocol = dtProtocol;
     this.machineType = machineType;
   }
 
@@ -693,14 +690,16 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
     sb.append("port:");
     sb.append(this.port);
     first = false;
-    if (!first) sb.append(", ");
-    sb.append("scratchDir:");
-    if (this.scratchDir == null) {
-      sb.append("null");
-    } else {
-      sb.append(this.scratchDir);
+    if (isSetScratchDir()) {
+      if (!first) sb.append(", ");
+      sb.append("scratchDir:");
+      if (this.scratchDir == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.scratchDir);
+      }
+      first = false;
     }
-    first = false;
     if (!first) sb.append(", ");
     sb.append("loginId:");
     if (this.loginId == null) {
@@ -709,14 +708,16 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
       sb.append(this.loginId);
     }
     first = false;
-    if (!first) sb.append(", ");
-    sb.append("dtProtocol:");
-    if (this.dtProtocol == null) {
-      sb.append("null");
-    } else {
-      sb.append(this.dtProtocol);
+    if (isSetDtProtocol()) {
+      if (!first) sb.append(", ");
+      sb.append("dtProtocol:");
+      if (this.dtProtocol == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.dtProtocol);
+      }
+      first = false;
     }
-    first = false;
     if (!first) sb.append(", ");
     sb.append("machineType:");
     if (this.machineType == null) {
@@ -735,14 +736,8 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
       throw new org.apache.thrift.protocol.TProtocolException("Required field 'hostname' was not present! Struct: " + toString());
     }
     // alas, we cannot check 'port' because it's a primitive and you chose the non-beans generator.
-    if (scratchDir == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'scratchDir' was not present! Struct: " + toString());
-    }
     if (loginId == null) {
       throw new org.apache.thrift.protocol.TProtocolException("Required field 'loginId' was not present! Struct: " + toString());
-    }
-    if (dtProtocol == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'dtProtocol' was not present! Struct: " + toString());
     }
     if (machineType == null) {
       throw new org.apache.thrift.protocol.TProtocolException("Required field 'machineType' was not present! Struct: " + toString());
@@ -861,9 +856,11 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
       oprot.writeI32(struct.port);
       oprot.writeFieldEnd();
       if (struct.scratchDir != null) {
-        oprot.writeFieldBegin(SCRATCH_DIR_FIELD_DESC);
-        oprot.writeString(struct.scratchDir);
-        oprot.writeFieldEnd();
+        if (struct.isSetScratchDir()) {
+          oprot.writeFieldBegin(SCRATCH_DIR_FIELD_DESC);
+          oprot.writeString(struct.scratchDir);
+          oprot.writeFieldEnd();
+        }
       }
       if (struct.loginId != null) {
         oprot.writeFieldBegin(LOGIN_ID_FIELD_DESC);
@@ -871,9 +868,11 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
         oprot.writeFieldEnd();
       }
       if (struct.dtProtocol != null) {
-        oprot.writeFieldBegin(DT_PROTOCOL_FIELD_DESC);
-        oprot.writeI32(struct.dtProtocol.getValue());
-        oprot.writeFieldEnd();
+        if (struct.isSetDtProtocol()) {
+          oprot.writeFieldBegin(DT_PROTOCOL_FIELD_DESC);
+          oprot.writeI32(struct.dtProtocol.getValue());
+          oprot.writeFieldEnd();
+        }
       }
       if (struct.machineType != null) {
         oprot.writeFieldBegin(MACHINE_TYPE_FIELD_DESC);
@@ -899,10 +898,22 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
       TTupleProtocol oprot = (TTupleProtocol) prot;
       oprot.writeString(struct.hostname);
       oprot.writeI32(struct.port);
-      oprot.writeString(struct.scratchDir);
       oprot.writeString(struct.loginId);
-      oprot.writeI32(struct.dtProtocol.getValue());
       oprot.writeI32(struct.machineType.getValue());
+      BitSet optionals = new BitSet();
+      if (struct.isSetScratchDir()) {
+        optionals.set(0);
+      }
+      if (struct.isSetDtProtocol()) {
+        optionals.set(1);
+      }
+      oprot.writeBitSet(optionals, 2);
+      if (struct.isSetScratchDir()) {
+        oprot.writeString(struct.scratchDir);
+      }
+      if (struct.isSetDtProtocol()) {
+        oprot.writeI32(struct.dtProtocol.getValue());
+      }
     }
 
     @Override
@@ -912,14 +923,19 @@ public class TargetMachine implements org.apache.thrift.TBase<TargetMachine, Tar
       struct.setHostnameIsSet(true);
       struct.port = iprot.readI32();
       struct.setPortIsSet(true);
-      struct.scratchDir = iprot.readString();
-      struct.setScratchDirIsSet(true);
       struct.loginId = iprot.readString();
       struct.setLoginIdIsSet(true);
-      struct.dtProtocol = org.apache.airavata.sga.commons.model.DataTransferProtocol.findByValue(iprot.readI32());
-      struct.setDtProtocolIsSet(true);
       struct.machineType = org.apache.airavata.sga.commons.model.MachineType.findByValue(iprot.readI32());
       struct.setMachineTypeIsSet(true);
+      BitSet incoming = iprot.readBitSet(2);
+      if (incoming.get(0)) {
+        struct.scratchDir = iprot.readString();
+        struct.setScratchDirIsSet(true);
+      }
+      if (incoming.get(1)) {
+        struct.dtProtocol = org.apache.airavata.sga.commons.model.DataTransferProtocol.findByValue(iprot.readI32());
+        struct.setDtProtocolIsSet(true);
+      }
     }
   }
 

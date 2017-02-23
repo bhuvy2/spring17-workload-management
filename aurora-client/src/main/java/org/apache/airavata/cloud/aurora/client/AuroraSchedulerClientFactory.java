@@ -1,6 +1,5 @@
 package org.apache.airavata.cloud.aurora.client;
 
-import org.apache.airavata.cloud.aurora.client.sdk.AuroraAdmin;
 import org.apache.airavata.cloud.aurora.client.sdk.AuroraSchedulerManager;
 import org.apache.airavata.cloud.aurora.client.sdk.ReadOnlyScheduler;
 import org.apache.thrift.protocol.TJSONProtocol;
@@ -12,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A factory for creating AuroraSchedulerClient objects.
+ * 
+ * @author goshenoy
  */
 public class AuroraSchedulerClientFactory {
 	
@@ -37,6 +38,13 @@ public class AuroraSchedulerClientFactory {
 		}
 	}
 	
+	/**
+	 * Creates a new AuroraSchedulerClient object.
+	 *
+	 * @param connectionUrl the connection url
+	 * @return the client
+	 * @throws Exception the exception
+	 */
 	public static AuroraSchedulerManager.Client createSchedulerManagerClient(String connectionUrl) throws Exception {
 		try {
 			TTransport transport = new THttpClient(connectionUrl);

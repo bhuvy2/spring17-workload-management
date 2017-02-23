@@ -26,6 +26,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class AuroraThriftClient.
+ * 
+ * @author goshenoy
  */
 public class AuroraThriftClient {
 	

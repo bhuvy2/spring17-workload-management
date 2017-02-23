@@ -49,7 +49,7 @@ public class Application implements org.apache.thrift.TBase<Application, Applica
   }
 
   public List<String> commands; // required
-  public List<Data> inputs; // required
+  public List<Data> inputs; // optional
   public List<Data> outputs; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
@@ -117,14 +117,14 @@ public class Application implements org.apache.thrift.TBase<Application, Applica
   }
 
   // isset id assignments
-  private static final _Fields optionals[] = {_Fields.OUTPUTS};
+  private static final _Fields optionals[] = {_Fields.INPUTS,_Fields.OUTPUTS};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
     tmpMap.put(_Fields.COMMANDS, new org.apache.thrift.meta_data.FieldMetaData("commands", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
             new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING))));
-    tmpMap.put(_Fields.INPUTS, new org.apache.thrift.meta_data.FieldMetaData("inputs", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+    tmpMap.put(_Fields.INPUTS, new org.apache.thrift.meta_data.FieldMetaData("inputs", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
             new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Data.class))));
     tmpMap.put(_Fields.OUTPUTS, new org.apache.thrift.meta_data.FieldMetaData("outputs", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
@@ -138,12 +138,10 @@ public class Application implements org.apache.thrift.TBase<Application, Applica
   }
 
   public Application(
-    List<String> commands,
-    List<Data> inputs)
+    List<String> commands)
   {
     this();
     this.commands = commands;
-    this.inputs = inputs;
   }
 
   /**
@@ -489,14 +487,16 @@ public class Application implements org.apache.thrift.TBase<Application, Applica
       sb.append(this.commands);
     }
     first = false;
-    if (!first) sb.append(", ");
-    sb.append("inputs:");
-    if (this.inputs == null) {
-      sb.append("null");
-    } else {
-      sb.append(this.inputs);
+    if (isSetInputs()) {
+      if (!first) sb.append(", ");
+      sb.append("inputs:");
+      if (this.inputs == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.inputs);
+      }
+      first = false;
     }
-    first = false;
     if (isSetOutputs()) {
       if (!first) sb.append(", ");
       sb.append("outputs:");
@@ -515,9 +515,6 @@ public class Application implements org.apache.thrift.TBase<Application, Applica
     // check for required fields
     if (commands == null) {
       throw new org.apache.thrift.protocol.TProtocolException("Required field 'commands' was not present! Struct: " + toString());
-    }
-    if (inputs == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'inputs' was not present! Struct: " + toString());
     }
     // check for sub-struct validity
   }
@@ -640,16 +637,18 @@ public class Application implements org.apache.thrift.TBase<Application, Applica
         oprot.writeFieldEnd();
       }
       if (struct.inputs != null) {
-        oprot.writeFieldBegin(INPUTS_FIELD_DESC);
-        {
-          oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.inputs.size()));
-          for (Data _iter10 : struct.inputs)
+        if (struct.isSetInputs()) {
+          oprot.writeFieldBegin(INPUTS_FIELD_DESC);
           {
-            _iter10.write(oprot);
+            oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, struct.inputs.size()));
+            for (Data _iter10 : struct.inputs)
+            {
+              _iter10.write(oprot);
+            }
+            oprot.writeListEnd();
           }
-          oprot.writeListEnd();
+          oprot.writeFieldEnd();
         }
-        oprot.writeFieldEnd();
       }
       if (struct.outputs != null) {
         if (struct.isSetOutputs()) {
@@ -689,18 +688,23 @@ public class Application implements org.apache.thrift.TBase<Application, Applica
           oprot.writeString(_iter12);
         }
       }
-      {
-        oprot.writeI32(struct.inputs.size());
-        for (Data _iter13 : struct.inputs)
-        {
-          _iter13.write(oprot);
-        }
-      }
       BitSet optionals = new BitSet();
-      if (struct.isSetOutputs()) {
+      if (struct.isSetInputs()) {
         optionals.set(0);
       }
-      oprot.writeBitSet(optionals, 1);
+      if (struct.isSetOutputs()) {
+        optionals.set(1);
+      }
+      oprot.writeBitSet(optionals, 2);
+      if (struct.isSetInputs()) {
+        {
+          oprot.writeI32(struct.inputs.size());
+          for (Data _iter13 : struct.inputs)
+          {
+            _iter13.write(oprot);
+          }
+        }
+      }
       if (struct.isSetOutputs()) {
         {
           oprot.writeI32(struct.outputs.size());
@@ -726,20 +730,22 @@ public class Application implements org.apache.thrift.TBase<Application, Applica
         }
       }
       struct.setCommandsIsSet(true);
-      {
-        org.apache.thrift.protocol.TList _list18 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
-        struct.inputs = new ArrayList<Data>(_list18.size);
-        Data _elem19;
-        for (int _i20 = 0; _i20 < _list18.size; ++_i20)
-        {
-          _elem19 = new Data();
-          _elem19.read(iprot);
-          struct.inputs.add(_elem19);
-        }
-      }
-      struct.setInputsIsSet(true);
-      BitSet incoming = iprot.readBitSet(1);
+      BitSet incoming = iprot.readBitSet(2);
       if (incoming.get(0)) {
+        {
+          org.apache.thrift.protocol.TList _list18 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
+          struct.inputs = new ArrayList<Data>(_list18.size);
+          Data _elem19;
+          for (int _i20 = 0; _i20 < _list18.size; ++_i20)
+          {
+            _elem19 = new Data();
+            _elem19.read(iprot);
+            struct.inputs.add(_elem19);
+          }
+        }
+        struct.setInputsIsSet(true);
+      }
+      if (incoming.get(1)) {
         {
           org.apache.thrift.protocol.TList _list21 = new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT, iprot.readI32());
           struct.outputs = new ArrayList<Data>(_list21.size);
