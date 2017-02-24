@@ -82,13 +82,11 @@ public class RabbitMQSubscriber implements Subscriber {
             }
 
             //channel.queueDelete(properties.getQueueName(), true, true);
-            Map<String, Object> args = new HashMap<String, Object>();
-            args.put("x-max-priority", Constants.QUEUE_MAX_PRIORITY);
             channel.queueDeclare(properties.getQueueName(),
                     properties.isDurable(), // durable
                     false, // exclusive
                     false, // autoDelete
-                    args);// arguments
+                    Constants.QUEUE_ARGS);// arguments
 
             final String id = getId(properties.getRoutingKey(), properties.getQueueName());
             if (queueDetailMap.containsKey(id)) {
