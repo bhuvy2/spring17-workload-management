@@ -59,6 +59,54 @@ public class TestUtils {
 
         return taskContext;
     }
+    
+    public static TaskContext getTaskContextForJobSubmission() {
+    	// create experiment
+    			Experiment exp = new Experiment();
+    			exp.setExperimentId("experiment-" + ThreadLocalRandom.current().nextInt(5000));
+    			exp.setDiskMB(10);
+    			exp.setRamMB(128);
+    			exp.setNumCPU(0.1);
+    			
+    			// create application
+    			Application app = new Application();
+    			List<String> commands = new ArrayList<>();
+    			commands.add("ping sga-mesos-master -c 4");
+    			commands.add("ping sga-mesos-slave -c 4");
+    			app.setCommands(commands);
+    			
+    			// create target machine
+    			TargetMachine target = new TargetMachine();
+    			target.setHostname("sga-mesos-master");
+    			target.setPort(8081);
+    			target.setLoginId("centos");
+    			target.setMachineType(MachineType.CLOUD);
+    			
+    			// create taskcontext
+    			TaskContext taskContext = new TaskContext();
+    			taskContext.setApplication(app);
+    			taskContext.setExperiment(exp);
+    			taskContext.setTargetMachine(target);
+    			taskContext.setQueueName("queue.jobsubmission");
+    			
+    			return taskContext;
+    }
+    
+    public static SchedulingRequest getSchedulingRequest() {
+    	SchedulingRequest request = new SchedulingRequest();
+    	request.setTaskContext(getTaskContext());
+    	request.setExperimentPriority(ExperimentPriority.NORMAL);
+    	request.setScheduleTime("2017-24-02");
+    	return request;
+    }
+    
+    public static SchedulingRequest getJobSubmissionSchedulingRequest() {
+    	SchedulingRequest request = new SchedulingRequest();
+    	request.setTaskContext(getTaskContextForJobSubmission());
+    	request.setExperimentPriority(ExperimentPriority.NORMAL);
+    	request.setScheduleTime("2017-24-02");
+    	return request;
+    }
 
     public static Publisher getSchedulerMessagePublisher(){
         return MessagingFactory.getPublisher(Constants.SCHEDULER_MESSAGE_RABBITMQ_PROPERTIES);

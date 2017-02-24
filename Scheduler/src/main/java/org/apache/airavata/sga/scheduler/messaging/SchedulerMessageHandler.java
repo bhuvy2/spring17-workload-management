@@ -1,5 +1,6 @@
 package org.apache.airavata.sga.scheduler.messaging;
 
+import org.apache.airavata.sga.commons.model.SchedulingRequest;
 import org.apache.airavata.sga.commons.model.TaskContext;
 import org.apache.airavata.sga.messaging.service.core.MessageHandler;
 import org.apache.airavata.sga.messaging.service.core.Publisher;
@@ -24,23 +25,26 @@ public class SchedulerMessageHandler implements MessageHandler {
         try{
             logger.info("onMessage() -> New message received. Message Id : " + messageContext.getMessageId());
 
-            TBase event = messageContext.getEvent();
+            TBase<?, ?> event = messageContext.getEvent();
             byte[] bytes = ThriftUtils.serializeThriftObject(event);
 
             Message message = new Message();
             ThriftUtils.createThriftFromBytes(bytes, message);
 
-            TaskContext taskContext = new TaskContext();
-            ThriftUtils.createThriftFromBytes(message.getEvent(), taskContext);
+            SchedulingRequest schedulingRequest = new SchedulingRequest();
+            ThriftUtils.createThriftFromBytes(message.getEvent(), schedulingRequest);
 
             logger.debug("onMessage() -> Get publisher. Message Id : " + messageContext.getMessageId());
 
-            Publisher publisher = SchedulerMessagingFactory.getPublisher(taskContext.getQueueName());
+            Publisher publisher = SchedulerMessagingFactory.getPublisher(schedulingRequest.getTaskContext().getQueueName());
 
-            logger.info("onMessage() -> Publishing task context. Queue name : " + taskContext.getQueueName() + ", Experiment Id : " +  taskContext.getExperiment().getExperimentId());
-            publisher.publish(new MessageContext(taskContext,
-                    taskContext.getExperiment().getExperimentId()));
-            logger.info("onMessage() -> Message published. Queue name : " + taskContext.getQueueName() + ", Experiment Id : " +  taskContext.getExperiment().getExperimentId());
+            logger.info("onMessage() -> Publishing task context. Queue name : " + schedulingRequest.getTaskContext().getQueueName() + ", Experiment Id : " +  schedulingRequest.getTaskContext().getQueueName());
+            publisher.publish(new MessageContext(schedulingRequest.getTaskContext(),
+                    schedulingRequest.getTaskContext().getExperiment().getExperimentId()));
+
+            logger.info("onMessage() -> Publishing task context. Queue name : " + schedulingRequest.getTaskContext().getQueueName() + ", Experiment Id : " +  schedulingRequest.getTaskContext().getExperiment().getExperimentId());
+            publisher.publish(messageContext);
+            logger.info("onMessage() -> Message published. Queue name : " + schedulingRequest.getTaskContext().getQueueName() + ", Experiment Id : " +  schedulingRequest.getTaskContext().getExperiment().getExperimentId());
 
         } catch (TException e) {
             logger.error("onMessage() -> Error processing message. Message Id : " + messageContext.getMessageId(), e);
