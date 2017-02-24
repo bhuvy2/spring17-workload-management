@@ -85,7 +85,8 @@ struct TaskContext {
 	2: optional TargetMachine targetMachine,
 	3: optional LocalStorage localStorage,
 	4: optional Application application,
-	5: optional DataStagingDirection dataStagingDirection
+	5: optional DataStagingDirection dataStagingDirection,
+	6: optional string queueName
 }
 
 struct Response {
