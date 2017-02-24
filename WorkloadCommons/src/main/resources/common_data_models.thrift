@@ -2,6 +2,7 @@ namespace java org.apache.airavata.sga.commons.model
 
 typedef i32 integer
 typedef i64 long
+typedef string timestamp;
 
 enum DataTransferProtocol {
 	SFTP,
@@ -17,10 +18,20 @@ enum DataType {
 	DOUBLE
 }
 
+enum DataStagingDirection {
+	INPUT,
+	OUTPUT
+}
+
 enum MachineType {
 	CLOUD,
 	HPC,
 	VM
+}
+
+enum ExperimentPriority {
+	NORMAL,
+	URGENT
 }
 
 enum Status {
@@ -74,12 +85,19 @@ struct TaskContext {
 	2: optional TargetMachine targetMachine,
 	3: optional LocalStorage localStorage,
 	4: optional Application application,
+	5: optional DataStagingDirection dataStagingDirection
 }
 
 struct Response {
 	1: required string experimentId,
 	2: required Status status,
 	3: optional string message
+}
+
+struct SchedulingRequest {
+	1: required TaskContext taskContext,
+	2: required ExperimentPriority experimentPriority = ExperimentPriority.NORMAL,
+	3: optional timestamp scheduleTime
 }
 
 exception OperationFailedException {
