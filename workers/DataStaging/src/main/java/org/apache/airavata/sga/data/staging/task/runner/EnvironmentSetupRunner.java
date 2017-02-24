@@ -1,10 +1,6 @@
 package org.apache.airavata.sga.data.staging.task.runner;
 
-import org.apache.airavata.sga.data.staging.task.messaging.DataStagingMessageHandler;
-import org.apache.airavata.sga.data.staging.task.messaging.EnvironmentSetupMessageHandler;
 import org.apache.airavata.sga.data.staging.task.messaging.EnvironmentSetupTaskMessagingFactory;
-import org.apache.airavata.sga.data.staging.task.util.Constants;
-import org.apache.airavata.sga.messaging.service.core.MessagingFactory;
 import org.apache.airavata.sga.messaging.service.core.Subscriber;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -32,28 +28,4 @@ public class EnvironmentSetupRunner {
             logger.error("startEnvironmentSetupTaskRunner() -> Something went wrong starting Environment Setup subscriber. Error: " + ex, ex);
         }
     }
-
-    /**
-     * The main method.
-     *
-     * @param args the arguments
-     */
-    public static void main(String[] args) {
-        try {
-            Runnable runner = new Runnable() {
-                @Override
-                public void run() {
-                    EnvironmentSetupRunner environmentSetupRunner = new EnvironmentSetupRunner();
-                    environmentSetupRunner.startEnvironmentSetupTaskRunner();
-                }
-            };
-
-            // start the worker thread
-            logger.info("main() -> Starting the EnvironmentSetupTask worker.");
-            new Thread(runner).start();
-        } catch (Exception ex) {
-            logger.error("main() -> Something went wrong with the EnvironmentSetupTask runner. Error: " + ex, ex);
-        }
-    }
-
 }
