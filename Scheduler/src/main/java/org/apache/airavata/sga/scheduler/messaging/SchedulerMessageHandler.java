@@ -1,5 +1,6 @@
 package org.apache.airavata.sga.scheduler.messaging;
 
+import org.apache.airavata.sga.commons.model.SchedulingRequest;
 import org.apache.airavata.sga.commons.model.TaskContext;
 import org.apache.airavata.sga.messaging.service.core.MessageHandler;
 import org.apache.airavata.sga.messaging.service.core.Publisher;
@@ -24,16 +25,18 @@ public class SchedulerMessageHandler implements MessageHandler {
         try{
             logger.info("onMessage() -> New message received. Message Id : " + messageContext.getMessageId());
 
-            TBase event = messageContext.getEvent();
+            TBase<?, ?> event = messageContext.getEvent();
             byte[] bytes = ThriftUtils.serializeThriftObject(event);
 
             Message message = new Message();
             ThriftUtils.createThriftFromBytes(bytes, message);
 
-            TaskContext taskContext = new TaskContext();
-            ThriftUtils.createThriftFromBytes(message.getEvent(), taskContext);
+            SchedulingRequest schedulingRequest = new SchedulingRequest();
+            ThriftUtils.createThriftFromBytes(message.getEvent(), schedulingRequest);
 
             logger.debug("onMessage() -> Get publisher. Message Id : " + messageContext.getMessageId());
+            TaskContext taskContext = schedulingRequest.getTaskContext();
+            logger.info("onMessage() -> Get TaskContext from SchedulingRequest : " + taskContext);
 
             Publisher publisher = SchedulerTaskPublisher.getPublisher(taskContext.getQueueName());
 
