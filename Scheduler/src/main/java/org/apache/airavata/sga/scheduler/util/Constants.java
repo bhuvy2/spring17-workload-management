@@ -41,9 +41,9 @@ public class Constants {
 
     private static RabbitMQProperties getSchedulerMessageRabbitMQProperties() {
         RabbitMQProperties rabbitMQProperties = getProperties();
-        rabbitMQProperties.setRoutingKey(Constants.SCHEDULER_MESSAGE_ROUTING_KEY);
-        rabbitMQProperties.setExchangeName(Constants.SCHEDULER_MESSAGE_EXCHANGE_NAME);
-        rabbitMQProperties.setQueueName(Constants.SCHEDULER_MESSAGE_QUEUE);
+        rabbitMQProperties.setRoutingKey(properties.getProperty(SCHEDULER_MESSAGE_ROUTING_KEY));
+        rabbitMQProperties.setExchangeName(properties.getProperty(SCHEDULER_MESSAGE_EXCHANGE_NAME));
+        rabbitMQProperties.setQueueName(properties.getProperty(SCHEDULER_MESSAGE_QUEUE));
         return rabbitMQProperties;
     }
 
