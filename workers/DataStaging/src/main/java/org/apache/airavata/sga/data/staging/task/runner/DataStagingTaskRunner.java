@@ -1,8 +1,7 @@
 package org.apache.airavata.sga.data.staging.task.runner;
 
-import org.apache.airavata.sga.data.staging.task.messaging.DataStagingMessageHandler;
-import org.apache.airavata.sga.data.staging.task.util.Constants;
-import org.apache.airavata.sga.messaging.service.core.MessagingFactory;
+import org.apache.airavata.sga.data.staging.task.messaging.DataStagingTaskMessagingFactory;
+import org.apache.airavata.sga.data.staging.task.messaging.EnvironmentSetupTaskMessagingFactory;
 import org.apache.airavata.sga.messaging.service.core.Subscriber;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -24,8 +23,7 @@ public class DataStagingTaskRunner {
     public void startDataStagingTaskRunner() {
         try {
             logger.info("startDataStagingTaskRunner() -> Initializing Data Staging subscriber");
-            dataStagingSubscriber = MessagingFactory.getSubscriber(new DataStagingMessageHandler(),
-                    Constants.DATA_STAGING_RABBITMQ_PROPERTIES);
+            dataStagingSubscriber = DataStagingTaskMessagingFactory.getSubscriber();
             logger.info("startDataStagingTaskRunner() -> Data Staging subscriber now listening: " + dataStagingSubscriber);
         } catch (Exception ex) {
             logger.error("startDataStagingTaskRunner() -> Something went wrong starting data staging subscriber. Error: " + ex, ex);

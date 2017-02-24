@@ -1,8 +1,8 @@
 package org.apache.airavata.sga.data.staging.task.test.util;
 
 import org.apache.airavata.sga.commons.model.*;
-import org.apache.airavata.sga.data.staging.task.messaging.DataStagingTaskPublisher;
-import org.apache.airavata.sga.data.staging.task.messaging.EnvironmentSetupTaskPublisher;
+import org.apache.airavata.sga.data.staging.task.messaging.DataStagingTaskMessagingFactory;
+import org.apache.airavata.sga.data.staging.task.messaging.EnvironmentSetupTaskMessagingFactory;
 import org.apache.airavata.sga.messaging.service.core.Publisher;
 
 import java.util.ArrayList;
@@ -64,10 +64,10 @@ public class TestUtils {
 	}
 
 	public static Publisher getEnvironmentSetupPublisher(){
-		return EnvironmentSetupTaskPublisher.getPublisher();
+		return EnvironmentSetupTaskMessagingFactory.getPublisher();
 	}
 
 	public static Publisher getDataStagingPublisher(){
-		return DataStagingTaskPublisher.getPublisher();
+		return DataStagingTaskMessagingFactory.getPublisher();
 	}
 }

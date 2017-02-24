@@ -21,6 +21,7 @@ package org.apache.airavata.sga.messaging.service.core.impl;/*
 
 import com.rabbitmq.client.*;
 import org.apache.airavata.sga.messaging.service.core.Subscriber;
+import org.apache.airavata.sga.messaging.service.util.Constants;
 import org.apache.airavata.sga.messaging.service.util.RabbitMQProperties;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -80,11 +81,14 @@ public class RabbitMQSubscriber implements Subscriber {
                 //channel.exchangeDeclare(properties.getExchangeName(), properties.getExchangeType(), true);
             }
 
+            //channel.queueDelete(properties.getQueueName(), true, true);
+            Map<String, Object> args = new HashMap<String, Object>();
+            args.put("x-max-priority", Constants.QUEUE_MAX_PRIORITY);
             channel.queueDeclare(properties.getQueueName(),
                     properties.isDurable(), // durable
                     false, // exclusive
                     false, // autoDelete
-                    null);// arguments
+                    args);// arguments
 
             final String id = getId(properties.getRoutingKey(), properties.getQueueName());
             if (queueDetailMap.containsKey(id)) {

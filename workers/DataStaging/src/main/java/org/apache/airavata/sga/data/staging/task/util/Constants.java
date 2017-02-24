@@ -1,5 +1,6 @@
 package org.apache.airavata.sga.data.staging.task.util;
 
+import org.apache.airavata.sga.commons.scheduler.RabbitMQConstants;
 import org.apache.airavata.sga.data.staging.task.messaging.Sample;
 import org.apache.airavata.sga.messaging.service.core.MessagingFactory;
 import org.apache.airavata.sga.messaging.service.util.RabbitMQProperties;
@@ -35,6 +36,8 @@ public class Constants {
 
     public static final RabbitMQProperties DATA_STAGING_RABBITMQ_PROPERTIES;
     public static final RabbitMQProperties ENVIRONMENT_SETUP_RABBITMQ_PROPERTIES;
+    public static final RabbitMQProperties SCHEDULER_RABBITMQ_PROPERTIES;
+
     public static final Properties properties;
 
     static{
@@ -46,6 +49,7 @@ public class Constants {
         }
         DATA_STAGING_RABBITMQ_PROPERTIES = getDataStagingRabbitMQProperties();
         ENVIRONMENT_SETUP_RABBITMQ_PROPERTIES = getEnvironmentSetupRabbitMQProperties();
+        SCHEDULER_RABBITMQ_PROPERTIES = getSchedulerRabbitMQProperties();
     }
 
     private static RabbitMQProperties getDataStagingRabbitMQProperties(){
@@ -63,6 +67,14 @@ public class Constants {
         rabbitMQProperties.setRoutingKey(properties.getProperty(ENVIRONMENT_SETUP_ROUTING_KEY));
         rabbitMQProperties.setExchangeName(properties.getProperty(ENVIRONMENT_SETUP_EXCHANGE_NAME));
         rabbitMQProperties.setQueueName(properties.getProperty(ENVIRONMENT_SETUP_QUEUE));
+        return rabbitMQProperties;
+    }
+
+    private static RabbitMQProperties getSchedulerRabbitMQProperties() {
+        RabbitMQProperties rabbitMQProperties = getProperties();
+        rabbitMQProperties.setRoutingKey(RabbitMQConstants.SCHEDULER_ROUTING_KEY);
+        rabbitMQProperties.setExchangeName(RabbitMQConstants.SCHEDULER_EXCHANGE);
+        rabbitMQProperties.setQueueName(RabbitMQConstants.SCHEDULER_QUEUE);
         return rabbitMQProperties;
     }
 

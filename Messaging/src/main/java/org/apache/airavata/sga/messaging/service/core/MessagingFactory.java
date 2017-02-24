@@ -20,6 +20,7 @@
  */
 package org.apache.airavata.sga.messaging.service.core;
 
+import com.rabbitmq.client.AMQP;
 import org.apache.airavata.sga.messaging.service.core.impl.MessageConsumer;
 import org.apache.airavata.sga.messaging.service.core.impl.RabbitMQPublisher;
 import org.apache.airavata.sga.messaging.service.core.impl.RabbitMQSubscriber;
@@ -28,7 +29,9 @@ import org.apache.airavata.sga.messaging.service.util.RabbitMQProperties;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class MessagingFactory {
 
@@ -51,6 +54,9 @@ public class MessagingFactory {
         return subscriber;
     }
 
+    public static AMQP.BasicProperties getBasicProperties(int priority){
+        return new AMQP.BasicProperties("text/plain", (String)null, (Map)null, Integer.valueOf(2), Integer.valueOf(priority), (String)null, (String)null, (String)null, (String)null, (Date)null, (String)null, (String)null, (String)null, (String)null);
+    }
 
     private static RabbitMQProperties getProperties() {
         return new RabbitMQProperties()

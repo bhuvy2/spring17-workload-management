@@ -2,6 +2,7 @@ package org.apache.airavata.sga.data.staging.task.runner;
 
 import org.apache.airavata.sga.data.staging.task.messaging.DataStagingMessageHandler;
 import org.apache.airavata.sga.data.staging.task.messaging.EnvironmentSetupMessageHandler;
+import org.apache.airavata.sga.data.staging.task.messaging.EnvironmentSetupTaskMessagingFactory;
 import org.apache.airavata.sga.data.staging.task.util.Constants;
 import org.apache.airavata.sga.messaging.service.core.MessagingFactory;
 import org.apache.airavata.sga.messaging.service.core.Subscriber;
@@ -25,8 +26,7 @@ public class EnvironmentSetupRunner {
     public void startEnvironmentSetupTaskRunner() {
         try {
             logger.info("startEnvironmentSetupTaskRunner() -> Initializing Environment Setup subscriber");
-            environmentSetupSubscriber = MessagingFactory.getSubscriber(new EnvironmentSetupMessageHandler(),
-                    Constants.ENVIRONMENT_SETUP_RABBITMQ_PROPERTIES);
+            environmentSetupSubscriber = EnvironmentSetupTaskMessagingFactory.getSubscriber();
             logger.info("startEnvironmentSetupTaskRunner() -> Environment Setup subscriber now listening: " + environmentSetupSubscriber);
         } catch (Exception ex) {
             logger.error("startEnvironmentSetupTaskRunner() -> Something went wrong starting Environment Setup subscriber. Error: " + ex, ex);

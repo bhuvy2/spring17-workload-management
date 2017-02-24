@@ -20,6 +20,8 @@ package org.apache.airavata.sga.messaging.service.core.impl;/*
  */
 
 import com.rabbitmq.client.*;
+import org.apache.airavata.sga.messaging.service.core.MessagingFactory;
+import org.apache.airavata.sga.messaging.service.util.Constants;
 import org.apache.airavata.sga.messaging.service.util.MessageContext;
 import org.apache.airavata.sga.messaging.service.core.Publisher;
 import org.apache.airavata.sga.messaging.service.model.Message;
@@ -32,6 +34,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 public class RabbitMQPublisher implements Publisher {
@@ -62,12 +66,14 @@ public class RabbitMQPublisher implements Publisher {
             });
 
             channel = connection.createChannel();
-
+            //channel.queueDelete(properties.getQueueName(), true, true);
+            Map<String, Object> args = new HashMap<String, Object>();
+            args.put("x-max-priority", Constants.QUEUE_MAX_PRIORITY);
             channel.queueDeclare(properties.getQueueName(),
                     properties.isDurable(), // durable
                     false, // exclusive
                     false, // autoDelete
-                    null);// arguments
+                    args);// arguments
 
             /*
             Not required for work queue implementation
@@ -94,14 +100,14 @@ public class RabbitMQPublisher implements Publisher {
 
         byte[] messageBody = ThriftUtils.serializeThriftObject(message);
 
-        send(messageBody);
+        send(messageBody, messageContext.getPriority());
         logger.info("publish() -> Message Sent. Message Id : " + messageContext.getMessageId());
 
     }
 
-    public void send(byte []message) throws Exception {
+    public void send(byte []message, int priority) throws Exception {
         try {
-            channel.basicPublish(properties.getExchangeName(), properties.getQueueName(), MessageProperties.PERSISTENT_TEXT_PLAIN, message);
+            channel.basicPublish(properties.getExchangeName(), properties.getQueueName(), MessagingFactory.getBasicProperties(priority), message);
         } catch (IOException e) {
             logger.error("send() -> Error sending message.", e);
         }

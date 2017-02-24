@@ -20,7 +20,7 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.1" level="project" />
     <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.53" level="project" />
     <orderEntry type="module" module-name="WorkloadCommons" />
-    <orderEntry type="module" module-name="Rabbitmq" />
+    <orderEntry type="module" module-name="Messaging" />
     <orderEntry type="library" name="Maven: com.rabbitmq:amqp-client:3.5.5" level="project" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.6" level="project" />
   </component>
