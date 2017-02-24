@@ -32,7 +32,7 @@ public class DataStagingTaskMessagingFactory {
     public static Subscriber getSubscriber() {
         if (subscriber == null) {
             logger.info("Initializing Environment Setup subscriber");
-            subscriber = MessagingFactory.getSubscriber(new EnvironmentSetupMessageHandler(),
+            subscriber = MessagingFactory.getSubscriber(new DataStagingMessageHandler(),
                     Constants.DATA_STAGING_RABBITMQ_PROPERTIES);
         }
         return subscriber;
