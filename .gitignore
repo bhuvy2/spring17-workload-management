@@ -37,3 +37,4 @@ local.properties
 
 #idea specific git ignore
 .idea
+*.iml
