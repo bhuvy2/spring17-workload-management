@@ -3,6 +3,7 @@ package util;
 import org.apache.airavata.sga.commons.model.*;
 import org.apache.airavata.sga.messaging.service.core.MessagingFactory;
 import org.apache.airavata.sga.messaging.service.core.Publisher;
+import org.apache.airavata.sga.messaging.service.core.Subscriber;
 import org.apache.airavata.sga.scheduler.util.Constants;
 
 import java.util.ArrayList;
@@ -59,7 +60,11 @@ public class TestUtils {
         return taskContext;
     }
 
-    public static Publisher getDataStagingPublisher(){
+    public static Publisher getSchedulerMessagePublisher(){
         return MessagingFactory.getPublisher(Constants.SCHEDULER_MESSAGE_RABBITMQ_PROPERTIES);
+    }
+
+    public static Subscriber getOrchestratorResponseSubscriber(){
+        return MessagingFactory.getSubscriber(new MockOrchestratorHandler(), Constants.ORCHESTRATOR_RESPONSE_RABBITMQ_PROPERTIES);
     }
 }

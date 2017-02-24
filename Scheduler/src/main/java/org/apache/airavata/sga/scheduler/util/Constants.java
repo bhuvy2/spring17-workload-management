@@ -23,9 +23,14 @@ public class Constants {
     public static final String SCHEDULER_MESSAGE_QUEUE = "scheduler.message.queue";
     public static final String SCHEDULER_MESSAGE_ROUTING_KEY = "scheduler.message.routing.key";
 
+    public static final String ORCHESTRATOR_RESPONSE_EXCHANGE_NAME = "orchestrator.response.exchange.name";
+    public static final String ORCHESTRATOR_RESPONSE_QUEUE = "orchestrator.response.queue";
+    public static final String ORCHESTRATOR_RESPONSE_ROUTING_KEY = "orchestrator.response.routing.key";
+
     public static final Map<String, Publisher> PUBLISHER_MAP = new HashMap<>();
     public static final RabbitMQProperties SCHEDULER_RABBITMQ_PROPERTIES;
     public static final RabbitMQProperties SCHEDULER_MESSAGE_RABBITMQ_PROPERTIES;
+    public static final RabbitMQProperties ORCHESTRATOR_RESPONSE_RABBITMQ_PROPERTIES;
     public static final Properties properties;
 
     static{
@@ -37,6 +42,15 @@ public class Constants {
         }
         SCHEDULER_MESSAGE_RABBITMQ_PROPERTIES = getSchedulerMessageRabbitMQProperties();
         SCHEDULER_RABBITMQ_PROPERTIES = getSchedulerRabbitMQProperties();
+        ORCHESTRATOR_RESPONSE_RABBITMQ_PROPERTIES = getOrchestratorResponseRabbitMQProperties();
+    }
+
+    private static RabbitMQProperties getOrchestratorResponseRabbitMQProperties() {
+        RabbitMQProperties rabbitMQProperties = getProperties();
+        rabbitMQProperties.setRoutingKey(properties.getProperty(ORCHESTRATOR_RESPONSE_ROUTING_KEY));
+        rabbitMQProperties.setExchangeName(properties.getProperty(ORCHESTRATOR_RESPONSE_EXCHANGE_NAME));
+        rabbitMQProperties.setQueueName(properties.getProperty(ORCHESTRATOR_RESPONSE_QUEUE));
+        return rabbitMQProperties;
     }
 
     private static RabbitMQProperties getSchedulerMessageRabbitMQProperties() {

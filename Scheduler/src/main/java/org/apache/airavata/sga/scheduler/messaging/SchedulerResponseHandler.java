@@ -32,11 +32,23 @@ public class SchedulerResponseHandler implements MessageHandler {
             Response response = new Response();
             ThriftUtils.createThriftFromBytes(message.getEvent(), response);
 
-            //TODO: send response back to orchestrator
-            logger.info("onMessage() -> Received response. Response : " + response.toString());
+            logger.info("onMessage() -> Sending response back to orchestrator. Response : " + response.toString()+ ", Experiment Id : " +  response.getExperimentId());
+
+            MessageContext responseMsg = new MessageContext(response, response.getExperimentId());
+            SchedulerMessagingFactory.getOrchestratorResponsePublisher().publish(responseMsg);
+            logger.info("onMessage() -> Response sent. Response : " + response.toString());
+
+            //send ack back to respective queue
+//            logger.info("onMessage() -> Sending ack for message. Message Id : " + messageContext.getMessageId() + ", Delivery Tag : " + messageContext.getDeliveryTag());
+//
+//            SchedulerMessagingFactory.getSubscriber(messageContext).sendAck(messageContext.getDeliveryTag());
+//            logger.debug("onMessage() -> Ack sent. Message Id : " + messageContext.getMessageId() + ", Experiment Id : " +  response.getExperimentId());
+
 
         } catch (TException e) {
             logger.error("onMessage() -> Error processing message. Message Id : " + messageContext.getMessageId(), e);
+        } catch (Exception e) {
+            logger.error("onMessage() -> Error sending response back to orchestrator. Message Id : " + messageContext.getMessageId(), e);
         }
     }
 }

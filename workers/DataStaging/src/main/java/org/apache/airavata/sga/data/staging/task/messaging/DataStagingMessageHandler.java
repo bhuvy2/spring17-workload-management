@@ -48,7 +48,7 @@ public class DataStagingMessageHandler implements MessageHandler {
 
             logger.info("onMessage() -> Sending response back to scheduler. Response : " + response.toString()+ ", Experiment Id : " +  taskContext.getExperiment().getExperimentId());
 
-            MessageContext responseMsg = new MessageContext(response, taskContext.getExperiment().getExperimentId()+ ", Experiment Id : " +  taskContext.getExperiment().getExperimentId());
+            MessageContext responseMsg = new MessageContext(response, taskContext.getExperiment().getExperimentId());
             SchedulerMessageFactory.getSchedulerPublisher().publish(responseMsg);
             logger.info("onMessage() -> Response sent. Response : " + response.toString());
 

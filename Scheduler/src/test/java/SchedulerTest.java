@@ -11,13 +11,15 @@ public class SchedulerTest {
     public void testScheduler() {
         try {
             TaskContext taskContext = TestUtils.getTaskContext();
-            Publisher publisher = TestUtils.getDataStagingPublisher();
+            Publisher publisher = TestUtils.getSchedulerMessagePublisher();
 
             // publish message
             MessageContext messageContext = new MessageContext(taskContext,
                     taskContext.getExperiment().getExperimentId());
             publisher.publish(messageContext);
-            System.exit(0);
+
+            TestUtils.getOrchestratorResponseSubscriber();
+            //System.exit(0);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

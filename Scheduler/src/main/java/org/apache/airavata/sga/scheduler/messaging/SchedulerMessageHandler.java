@@ -35,11 +35,11 @@ public class SchedulerMessageHandler implements MessageHandler {
 
             logger.debug("onMessage() -> Get publisher. Message Id : " + messageContext.getMessageId());
 
-            Publisher publisher = SchedulerTaskPublisher.getPublisher(taskContext.getQueueName());
+            Publisher publisher = SchedulerMessagingFactory.getPublisher(taskContext.getQueueName());
 
             logger.info("onMessage() -> Publishing task context. Queue name : " + taskContext.getQueueName() + ", Experiment Id : " +  taskContext.getExperiment().getExperimentId());
-
-            publisher.publish(messageContext);
+            publisher.publish(new MessageContext(taskContext,
+                    taskContext.getExperiment().getExperimentId()));
             logger.info("onMessage() -> Message published. Queue name : " + taskContext.getQueueName() + ", Experiment Id : " +  taskContext.getExperiment().getExperimentId());
 
         } catch (TException e) {
