@@ -29,7 +29,7 @@ public class SchedulerTaskPublisher {
         rabbitMQProperties.setRoutingKey("");
 
         Publisher publisher = MessagingFactory.getPublisher(rabbitMQProperties);
-
+        //save publisher against queue for future reference
         Constants.PUBLISHER_MAP.put(queueName, publisher);
         return publisher;
     }

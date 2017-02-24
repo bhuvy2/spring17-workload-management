@@ -32,6 +32,7 @@ public class SchedulerResponseHandler implements MessageHandler {
             Response response = new Response();
             ThriftUtils.createThriftFromBytes(message.getEvent(), response);
 
+            //TODO: send response back to orchestrator
             logger.info("onMessage() -> Received response. Response : " + response.toString());
 
         } catch (TException e) {

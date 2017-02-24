@@ -3,16 +3,57 @@ package org.apache.airavata.sga.scheduler.util;
 import org.apache.airavata.sga.commons.scheduler.RabbitMQConstants;
 import org.apache.airavata.sga.messaging.service.core.Publisher;
 import org.apache.airavata.sga.messaging.service.util.RabbitMQProperties;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by Ajinkya on 2/24/17.
  */
 public class Constants {
 
+    private static final Logger logger = LogManager.getLogger(Constants.class);
+
+    public static final String SCHEDULER_PROP_FILE = "scheduler.properties";
+    public static final String SCHEDULER_MESSAGE_EXCHANGE_NAME = "scheduler.message.exchange.name";
+    public static final String SCHEDULER_MESSAGE_QUEUE = "scheduler.message.queue";
+    public static final String SCHEDULER_MESSAGE_ROUTING_KEY = "scheduler.message.routing.key";
+
     public static final Map<String, Publisher> PUBLISHER_MAP = new HashMap<>();
+    public static final RabbitMQProperties SCHEDULER_RABBITMQ_PROPERTIES;
+    public static final RabbitMQProperties SCHEDULER_MESSAGE_RABBITMQ_PROPERTIES;
+    public static final Properties properties;
+
+    static{
+        properties = new Properties();
+        try {
+            properties.load(Constants.class.getClassLoader().getResourceAsStream(SCHEDULER_PROP_FILE));
+        } catch (IOException ex) {
+            logger.error("Error loading properties: " + ex.getMessage(), ex);
+        }
+        SCHEDULER_MESSAGE_RABBITMQ_PROPERTIES = getSchedulerMessageRabbitMQProperties();
+        SCHEDULER_RABBITMQ_PROPERTIES = getSchedulerRabbitMQProperties();
+    }
+
+    private static RabbitMQProperties getSchedulerMessageRabbitMQProperties() {
+        RabbitMQProperties rabbitMQProperties = getProperties();
+        rabbitMQProperties.setRoutingKey(Constants.SCHEDULER_MESSAGE_ROUTING_KEY);
+        rabbitMQProperties.setExchangeName(Constants.SCHEDULER_MESSAGE_EXCHANGE_NAME);
+        rabbitMQProperties.setQueueName(Constants.SCHEDULER_MESSAGE_QUEUE);
+        return rabbitMQProperties;
+    }
+
+    private static RabbitMQProperties getSchedulerRabbitMQProperties() {
+        RabbitMQProperties rabbitMQProperties = getProperties();
+        rabbitMQProperties.setRoutingKey(RabbitMQConstants.SCHEDULER_ROUTING_KEY);
+        rabbitMQProperties.setExchangeName(RabbitMQConstants.SCHEDULER_EXCHANGE);
+        rabbitMQProperties.setQueueName(RabbitMQConstants.SCHEDULER_QUEUE);
+        return rabbitMQProperties;
+    }
 
     public static RabbitMQProperties getProperties() {
         return new RabbitMQProperties().setBrokerUrl(RabbitMQConstants.AMQP_URI)
