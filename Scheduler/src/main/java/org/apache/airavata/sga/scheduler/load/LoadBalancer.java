@@ -1,18 +1,22 @@
 package org.apache.airavata.sga.scheduler.load;
 
 import org.apache.airavata.graph.*;
+import java.util.Queue; 
 
 /**
  * @author Hackillinois 2017
  *
  */
-public class LoadBalancer {
 
-	/**
-	 * If a worker is in this graph it is free
-	 * If a job is in this graph, it is not being
-	 * worked on by any worker.
-	 */
+ class FaultTolerance {
+	private HashMap <Worker,String> dead;
+	
+	static Queue<String> waitingjobs;
+	waitingjobs = new Queue<String>();
+	static Queue ongoingjobs =;
+	
+	
+
 	private DiGraph matching;
 	
 	private class Job {
@@ -20,8 +24,25 @@ public class LoadBalancer {
 		/* String label */
 	}
 	
-	public LoadBalancer(){
-		matching = new DiGraph();
+	public void ReserveJob(Worker w){
+		if(w.getworkerstate == "failed"){
+			waitingjobs.add();
+		}
+	}
+	
+	
+	
+	
+	public void PutbackJob(Queue waitingjobs, Queue ongoingjobs){
+		
+	}
+	
+
+	public boolean GoodtoGo(){
+		
+		
+		
+		
 	}
 	
 	public void scheduleJobs(){
