@@ -21,6 +21,7 @@ public class OrchestratorRunner {
 
     private void startSchedulerRunner() {
 
+		/*
         try {
             logger.info("Initializing scheduler's respose subscriber");
             subscriber = MessagingFactory.getSubscriber(new Orchestrator(),
@@ -35,6 +36,7 @@ public class OrchestratorRunner {
         } catch (Exception ex) {
             logger.error("Something went wrong starting subscriber. Error: " + ex, ex);
         }
+        */
     }
 
     public static void main(String[] args) {

@@ -54,11 +54,16 @@
 		
 		<!-- https://mvnrepository.com/artifact/org.apache.tinkerpop/tinkergraph-gremlin -->
 		<dependency>
-		    <groupId>org.apache.tinkerpop</groupId>
-		    <artifactId>tinkergraph-gremlin</artifactId>
-		    <version>3.2.4</version>
+			<groupId>com.couchbase.client</groupId>
+			<artifactId>java-client</artifactId>
+			<version>2.4.2</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>

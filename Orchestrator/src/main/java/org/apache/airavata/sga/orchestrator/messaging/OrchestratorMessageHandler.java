@@ -12,19 +12,30 @@ import org.apache.log4j.Logger;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 
+import util.TestUtils;
+
 /**
  * Created by Ajinkya on 2/24/17.
  */
 public class OrchestratorMessageHandler implements MessageHandler {
 
     /** The Constant logger. */
-    private static final Logger logger = null;
+	Orchestrator mainOrchestrator;
+	public OrchestratorMessageHandler(Orchestrator orch){
+		mainOrchestrator = orch;
+	}
+    private static final Logger logger = LogManager.getLogger(OrchestratorMessageHandler.class);
 
     @Override
     public void onMessage(MessageContext messageContext) {
         try{
             logger.info("onMessage() -> New message received. Message Id : " + messageContext.getMessageId());
 
+            if (messageContext.getMessage() != null){
+            	
+            	System.out.println("Message context exists");
+            	return;
+            }
             TBase<?, ?> event = messageContext.getEvent();
             byte[] bytes = ThriftUtils.serializeThriftObject(event);
 
@@ -36,7 +47,7 @@ public class OrchestratorMessageHandler implements MessageHandler {
 
             logger.debug("onMessage() -> Get publisher. Message Id : " + messageContext.getMessageId());
 
-            Publisher publisher = null; //((Object)null).getPublisher(schedulingRequest.getTaskContext().getQueueName());
+            Publisher publisher = TestUtils.getSchedulerMessagePublisher(); //OrchestratorMessagingFactory.getPublisher(schedulingRequest.getTaskContext().getQueueName());
 
             logger.info("onMessage() -> Publishing task context. Queue name : " + schedulingRequest.getTaskContext().getQueueName() + ", Experiment Id : " +  schedulingRequest.getTaskContext().getQueueName());
             publisher.publish(new MessageContext(schedulingRequest.getTaskContext(),
