@@ -4,13 +4,6 @@ import java.util.ArrayList;
 
 public class WorkerGatherer {
 	
-	public class Worker {
-		ArrayList<String> JobTypes;
-		int port;
-		String ipAddress;
-		String state;
-	}
-	
 	private ArrayList<Worker> workers;
 	
 	public boolean receiveMessage(int msg){
@@ -19,14 +12,23 @@ public class WorkerGatherer {
 		 * Cancel previous callback to remove node
 		 * Register new callback to remove node
 		 */
-		
+
+
+
 		return false;
 	}
 	
-	public void removeWorker(Worker wrk){
+	public void removeWorker(Worker worker){
 		/*
-		 *  To be called later
+		 *  Handle worker removal
+		 *  	- logging?
+		 *  	- callbacks?
+		 *
+		 *
 		 */
+
+
+
 	}
 	
 	public ArrayList<Worker> getWorkers(){
