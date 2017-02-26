@@ -27,6 +27,10 @@ public class Constants {
     public static final String ORCHESTRATOR_RESPONSE_QUEUE = "orchestrator.response.queue";
     public static final String ORCHESTRATOR_RESPONSE_ROUTING_KEY = "orchestrator.response.routing.key";
 
+    public static final String SCHEDULER_MESSAGE_BUFFER_SIZE_CONSTANT = "scheduler.message.buffer.size.constant";
+    public static final String SCHEDULER_MESSAGE_BUFFER_TRACKING_SIZE = "scheduler.message.buffer.tracking.size";
+    public static final String SCHEDULER_MESSAGE_BUFFER_RATE_MULTIPLIER = "scheduler.message.buffer.rate.multiplier";
+
     public static final Map<String, Publisher> PUBLISHER_MAP = new HashMap<>();
     public static final RabbitMQProperties SCHEDULER_RABBITMQ_PROPERTIES;
     public static final RabbitMQProperties SCHEDULER_MESSAGE_RABBITMQ_PROPERTIES;
@@ -76,5 +80,21 @@ public class Constants {
                 .setAutoAck(Boolean.parseBoolean(RabbitMQConstants.IS_AUTO_ACK))
                 .setConsumerTag(RabbitMQConstants.CONSUMER_TAG)
                 .setExchangeType(RabbitMQProperties.EXCHANGE_TYPE.TOPIC);
+    }
+
+    public static int getPropertyOrDefault(String key, int defaultValue) {
+        try {
+            return Integer.parseInt(properties.getProperty(key));
+        } catch (NumberFormatException nfe) {
+            return defaultValue;
+        }
+    }
+
+    public static double getPropertyOrDefault(String key, double defaultValue) {
+        try {
+            return Double.parseDouble(properties.getProperty(key));
+        } catch (NumberFormatException nfe) {
+            return defaultValue;
+        }
     }
 }
