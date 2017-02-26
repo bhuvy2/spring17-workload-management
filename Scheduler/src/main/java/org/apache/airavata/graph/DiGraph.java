@@ -46,9 +46,9 @@ public class DiGraph {
 		for(int i = 0; i < verticies.get(job).size(); i++) {
 			Edge e = verticies.get(job).get(i);
 			int residual = e.capacity - e.flow;
-			if((residual > 0) && !(path.contains(e))) {
-				path.add(e);
+			if(residual > 0) {
 				if(findPath(e.worker, worker, path) == 0)
+					path.add(e);					
 					return 0;
 			}
 		}

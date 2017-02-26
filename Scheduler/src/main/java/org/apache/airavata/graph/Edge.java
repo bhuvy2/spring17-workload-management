@@ -6,6 +6,7 @@ public class Edge{
 	int capacity = 1;
 	int flow = 0;
 	boolean isSOrT = false;
+	boolean isFull = false;
 	
 	public Edge(int j, int w) {
 		job = j;
