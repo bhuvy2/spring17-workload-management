@@ -31,6 +31,10 @@ public class Edge {
         return request;
     }
 
+    public JobVertex getJob() { return job; }
+
+    public WorkerVertex getWorker() { return worker; }
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Edge) {

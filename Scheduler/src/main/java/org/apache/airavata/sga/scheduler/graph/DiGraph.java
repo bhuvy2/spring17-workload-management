@@ -3,6 +3,7 @@ package org.apache.airavata.sga.scheduler.graph;
 import org.apache.airavata.sga.commons.model.SchedulingRequest;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DiGraph {
 
@@ -43,7 +44,8 @@ public class DiGraph {
     public HashMap<Vertex, ArrayList<Edge>> getVertexEdges() { return vertexEdges; }
 
     public ArrayList<Edge> getEdges() {
-        return vertexEdges.entrySet().stream().map(entry -> entry.getValue()).flatMap(listContainer -> listContainer.)
+        return vertexEdges.entrySet().stream().map(entry -> entry.getValue()).flatMap(list -> list.stream()).collect
+                (Collectors.toCollection(ArrayList::new));
     }
 
     private int findPath(Vertex jobVertex, Vertex workerVertex, ArrayList<Edge> path) {
@@ -84,7 +86,7 @@ public class DiGraph {
 
     // clarify which identifier for routing queues
     public static ArrayList<SchedulingRequest> convertToRequests(Collection<Edge> edges) {
-        edges.stream().map()
+        return edges.stream().map(edge -> Edge.edgeToRequest(edge)).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public int numVertexes(){
