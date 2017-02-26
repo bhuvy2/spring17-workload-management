@@ -32,7 +32,7 @@ public class OrchestratorMessageHandler implements MessageHandler {
             logger.info("onMessage() -> New message received. Message Id : " + messageContext.getMessageId());
 
             if (messageContext.getMessage() != null){
-            	
+            	// Call function to create a job
             	System.out.println("Message context exists");
             	return;
             }

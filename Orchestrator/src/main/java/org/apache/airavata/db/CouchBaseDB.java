@@ -22,20 +22,19 @@ public class CouchBaseDB {
 	}
 	public void createModel(String name, ArrayList<String> jobList, Map<String, ArrayList<String>> dependencies){
 		JsonObject newModel = JsonObject.create();
-		newModel.put("ID", b_model.counter("id", 1));
+		JsonLongDocument ID = b_model.counter("id", 1);
+		newModel.put("ID", ID);
 		newModel.put("Name", name);
 		newModel.put("Job List", JsonArray.from(jobList));
 		newModel.put("Dependencies", JsonHelper.mapSSToJson(dependencies));
-		b_model.upsert(JsonDocument.create(name+newModel.get("ID"), newModel));
+		b_model.upsert(JsonDocument.create(ID.toString(), newModel)); // Assuming ID.toString() will give you the id directly
 	}
 	public Model getModel(String modelID){
-		N1qlQueryResult result = b_model.query(
-				N1qlQuery.parameterized("SELECT * FROM "+B_MO+ " WHERE $1 IN ID", JsonArray.from(modelID))
-				);
-		for(N1qlQueryRow values : result){
-			
-			
-		}
+		/* 
+		 * Needs to figure out a way to get the model from the bucket.
+		 * Then, create a model object based on the json
+		 */
+		JsonObject model = b_model.get(modelID).content();
 		return null;
 	}
 	public void disconnect(){
