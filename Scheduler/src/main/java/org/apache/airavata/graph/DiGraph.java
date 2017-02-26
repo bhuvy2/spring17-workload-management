@@ -45,11 +45,11 @@ public class DiGraph {
 		
 		for(int i = 0; i < verticies.get(job).size(); i++) {
 			Edge e = verticies.get(job).get(i);
-			int residual = e.capacity - e.flow;
-			if((residual > 0) && !(path.contains(e))) {
-				path.add(e);
-				if(findPath(e.worker, worker, path) == 0)
+			if(!e.isFull) {
+				if(findPath(e.worker, worker, path) == 0) {
+					path.add(e);
 					return 0;
+				}
 			}
 		}
 		
@@ -59,22 +59,15 @@ public class DiGraph {
 	public HashSet<Edge> maxFlow(int source, int target){
 		HashSet<Edge> edges = new HashSet<Edge>();
 		ArrayList<Edge> path = new ArrayList<Edge>();
+
 		findPath(source, target, path);
 		
 		while(!path.isEmpty()) {
-			int minResidual = path.get(0).capacity - path.get(0).flow;
-			
-			for(int i = 1; i < path.size(); i++) {
-				int residual = path.get(i).capacity - path.get(i).flow;
-				if(residual < minResidual)
-					minResidual = residual;
-			}
 			
 			while(!path.isEmpty()) {
-				path.get(0).flow += minResidual;
+				path.get(0).isFull = true;
 				edges.add(path.remove(0));
 			}
-			
 			findPath(source, target, path);
 		}
 		
