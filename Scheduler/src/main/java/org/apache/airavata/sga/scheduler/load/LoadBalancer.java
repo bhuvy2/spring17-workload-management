@@ -2,6 +2,9 @@ package org.apache.airavata.sga.scheduler.load;
 
 import org.apache.airavata.graph.*;
 
+import java.util.HashSet;
+import java.util.Iterator;
+
 /**
  * @author Hackillinois 2017
  *
@@ -17,7 +20,7 @@ public class LoadBalancer {
 	
 	private class Job {
 		/* Stuff goes here */
-		/* String label */
+		String label;
 	}
 	
 	public LoadBalancer(){
@@ -35,23 +38,51 @@ public class LoadBalancer {
 		 * 		Send message to worker # to run job
 		 * 		Register _callback_ to remove the vertex
 		 */
+		for w in workers:
+			if(w.getState() == "Available")
+				addWorker(w);
+		
+		HashSet<Edge> edges = matching.maxFlow(START_LABEL,END_LABEL);
+		
+		Iterator it = edges.Iterator();
+		while(it.hasNext()) {
+			Edge e = it.next();
+			if(START_LABEL != e.job && END_LABEL != e.worker) {
+				workerRunJob(e.worker, e.job);
+				
+			}
+		}
+		
+		
 	}
 	
-	public void addWorker(int worker){
+	public void addWorker(String worker){
 		//Add edge to graph
+		matching.addVertex(worker);
+		matching.addEdge(worker, END_LABEL);
+		// array a = getWorkerCapabilities(worker);
+		// for job in a:
+		// addEdge(job, worker);
 	}
 	
-	public void removeWorker(int worker){
+	public void removeWorker(String worker){
 		//Remove Worker
+		matching.removeVertex(worker);
 	}
 	
 	
 	public void addJob(Job job){
 		// Add to graph
+		matching.addVertex(job.label);
+		matching.addEdge(START_LABEL, job.label);
+		// For each worker:
+		// if worker can handle job
+		// addEdge(job, worker)
 	}
 	
 	public void removeJob(Job job){
 		// Removing from the graph.
+		matching.removeVertex(job.label);
 	}
 	
 }
