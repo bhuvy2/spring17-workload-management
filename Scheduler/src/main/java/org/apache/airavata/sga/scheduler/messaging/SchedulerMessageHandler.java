@@ -38,10 +38,13 @@ public class SchedulerMessageHandler implements MessageHandler {
 
             Publisher publisher = SchedulerMessagingFactory.getPublisher(schedulingRequest.getTaskContext().getQueueName());
 
-            logger.info("onMessage() -> Publishing task context. Queue name : " + schedulingRequest.getTaskContext().getQueueName() + ", Experiment Id : " +  schedulingRequest.getTaskContext().getQueueName());
+            logger.info("onMessage() -> Publishing task context. Queue name : "
+                    + schedulingRequest.getTaskContext().getQueueName()
+                    + ", Experiment Id : " +  schedulingRequest.getTaskContext().getQueueName());
             publisher.publish(new MessageContext(schedulingRequest.getTaskContext(),
                     schedulingRequest.getTaskContext().getExperiment().getExperimentId()));
-            logger.info("onMessage() -> Message published. Queue name : " + schedulingRequest.getTaskContext().getQueueName() + ", Experiment Id : " +  schedulingRequest.getTaskContext().getExperiment().getExperimentId());
+            logger.info("onMessage() -> Message published. Queue name : " + schedulingRequest.getTaskContext().getQueueName() +
+                    ", Experiment Id : " +  schedulingRequest.getTaskContext().getExperiment().getExperimentId());
 
         } catch (TException e) {
             logger.error("onMessage() -> Error processing message. Message Id : " + messageContext.getMessageId(), e);
