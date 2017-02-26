@@ -8,7 +8,7 @@ import util.TestUtils;
 /**
  * Created by Ajinkya on 2/24/17.
  */
-public class SchedulerTest {
+public class OrchestratorTest {
 
     public void testScheduler() {
         try {
@@ -27,8 +27,9 @@ public class SchedulerTest {
             ex.printStackTrace();
         }
     }
+    
     public static void main(String[] args) {
-        SchedulerTest test = new SchedulerTest();
+        OrchestratorTest test = new OrchestratorTest();
         test.testScheduler();
     }
 }
