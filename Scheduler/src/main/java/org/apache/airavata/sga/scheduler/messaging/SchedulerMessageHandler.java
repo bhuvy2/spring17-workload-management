@@ -88,6 +88,9 @@ public class SchedulerMessageHandler implements MessageHandler {
             @Override
             public ArrayList<Worker> getInformation() throws WorkerAccessException {
                 // define plz guys
+
+
+
                 return new ArrayList<Worker>();
             }
         });
